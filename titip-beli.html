@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Titip Beli dari Jepang &mdash; Otakuben</title>
+<meta name="description" content="Jasa titip beli barang hobi dari Mercari, Amazon JP, Surugaya, Animate, dan toko Jepang lainnya. Estimasi biaya transparan.">
+<meta name="theme-color" content="#08172B">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="site.webmanifest">
+
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/header.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/sections.css">
+<link rel="stylesheet" href="assets/css/shop.css">
+<link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+
+<body data-page="titip-beli" data-auth="out">
+
+<a class="skip-link" href="#main">Lompat ke konten utama</a>
+
+<div data-layout-header></div>
+
+<main id="main" class="page">
+  <div class="shell">
+
+    <nav class="crumb" aria-label="Jalur navigasi">
+      <a href="index.html">Beranda</a>
+      <span class="sep" aria-hidden="true">/</span>
+      <span aria-current="page">Titip Beli</span>
+    </nav>
+
+    <div class="page-head">
+      <h1>Request Barang dari Jepang</h1>
+      <p>Nemu barang incaran di Mercari, Amazon JP, Surugaya, atau Animate?
+         Tempel link-nya, kami bantu bid, beli, gabung paket, dan kirim ke Indonesia.</p>
+    </div>
+
+    <!-- Cara kerja -->
+    <div class="langkah-grid" style="margin-bottom:26px">
+      <div class="langkah-kartu">
+        <span class="no-besar" aria-hidden="true">1</span>
+        <h3>Kirim Link</h3>
+        <p>Tempel link produk dan isi perkiraan harganya dalam yen. Estimasi total
+           langsung muncul di sebelah form.</p>
+      </div>
+      <div class="langkah-kartu">
+        <span class="no-besar" aria-hidden="true">2</span>
+        <h3>Kami Beli &amp; Timbang</h3>
+        <p>Setelah kamu setuju, barang dibeli dan masuk gudang kami di Jepang untuk
+           ditimbang serta dicek kondisinya.</p>
+      </div>
+      <div class="langkah-kartu">
+        <span class="no-besar" aria-hidden="true">3</span>
+        <h3>Kirim ke Rumah</h3>
+        <p>Bisa digabung dengan request lain biar ongkir lebih murah, lalu dikirim
+           ke alamat kamu dengan nomor lacak.</p>
+      </div>
+    </div>
+
+    <!-- Form + estimasi -->
+    <div data-titip-wrap>
+      <div class="belanja-layout">
+
+        <form class="panel" data-form-titip novalidate>
+          <h2>Detail Barang</h2>
+
+          <div class="form-grid" style="margin-top:16px">
+            <div class="field penuh">
+              <label for="t-tautan">Link produk</label>
+              <input class="input" id="t-tautan" name="tautan" type="url"
+                     placeholder="https://... (Mercari, Amazon JP, Surugaya, dll)">
+              <span class="bantu">Tempel link lengkap, termasuk https://</span>
+            </div>
+
+            <div class="field penuh">
+              <label for="t-barang">Nama barang</label>
+              <input class="input" id="t-barang" name="barang" type="text"
+                     placeholder="Contoh: Scale figure 1/7 edisi terbatas">
+            </div>
+
+            <div class="field">
+              <label for="t-yen">Harga barang (&yen;)</label>
+              <input class="input" id="t-yen" name="yen" type="number" inputmode="numeric"
+                     min="0" value="12000" placeholder="12000">
+            </div>
+
+            <div class="field">
+              <label for="t-jumlah">Jumlah</label>
+              <input class="input" id="t-jumlah" name="jumlah" type="number" inputmode="numeric"
+                     min="1" value="1">
+            </div>
+
+            <div class="field">
+              <label for="t-berat">Estimasi berat (kg)</label>
+              <input class="input" id="t-berat" name="berat" type="number" inputmode="decimal"
+                     min="0.1" step="0.1" value="1">
+              <span class="bantu">Figure skala 1/7 biasanya 1,5&ndash;2,5 kg.</span>
+            </div>
+
+            <div class="field">
+              <label for="t-batas">Batas harga maksimal (&yen;, opsional)</label>
+              <input class="input" id="t-batas" name="batas" type="number" inputmode="numeric"
+                     min="0" placeholder="Untuk barang lelang">
+            </div>
+          </div>
+
+          <h2 style="margin-top:26px">Kontak Kamu</h2>
+          <div class="form-grid" style="margin-top:16px">
+            <div class="field">
+              <label for="t-nama">Nama</label>
+              <input class="input" id="t-nama" name="nama" type="text" placeholder="Nama kamu">
+            </div>
+            <div class="field">
+              <label for="t-kontak">WhatsApp / Email</label>
+              <input class="input" id="t-kontak" name="kontak" type="text"
+                     placeholder="08xxxxxxxxxx atau nama@email.com">
+            </div>
+            <div class="field penuh">
+              <label for="t-catatan">Catatan tambahan (opsional)</label>
+              <textarea class="textarea" id="t-catatan" name="catatan"
+                        placeholder="Contoh: kondisi harus segel, jangan yang bekas display"></textarea>
+            </div>
+          </div>
+
+          <button class="btn btn-primary" type="submit"
+                  style="width:100%;min-height:50px;margin-top:22px">Kirim Permintaan</button>
+        </form>
+
+        <!-- Estimasi biaya — dihitung assets/js/titipbeli.js -->
+        <div data-estimasi></div>
+      </div>
+    </div>
+
+    <!-- Tabel biaya -->
+    <section class="panel" style="margin-top:26px" aria-labelledby="biaya-judul">
+      <h2 id="biaya-judul">Rincian Biaya Jasa</h2>
+      <div class="tabel-wrap" style="margin-top:16px">
+        <table class="tabel-biaya">
+          <thead>
+            <tr><th>Komponen</th><th>Besaran</th><th>Catatan</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Jasa titip</td><td><b>10%</b> dari harga barang</td><td>Minimum Rp25.000 per barang</td></tr>
+            <tr><td>Kirim Jepang &rarr; Indonesia</td><td><b>Rp85.000</b> / kg</td><td>Bisa digabung antar-request</td></tr>
+            <tr><td>Ongkir domestik</td><td>Sesuai kurir</td><td>Dihitung setelah barang tiba</td></tr>
+            <tr><td>Deposit lelang</td><td><b>50%</b> di muka</td><td>Khusus barang lelang Yahoo Auction</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:14px;font-size:12.5px;color:var(--slate-400)">
+        Kurs yang dipakai halaman ini masih statis (&yen;1 = Rp108) dan diatur di
+        <code>assets/js/titipbeli.js</code>.
+      </p>
+    </section>
+  </div>
+</main>
+
+<div data-layout-footer></div>
+
+<div class="toast" data-toast data-open="false" role="status" aria-live="polite"></div>
+
+<script src="assets/js/data.js" defer></script>
+<script src="assets/js/ui.js" defer></script>
+<script src="assets/js/cart.js" defer></script>
+<script src="assets/js/layout.js" defer></script>
+<script src="assets/js/auth.js" defer></script>
+<script src="assets/js/search.js" defer></script>
+<script src="assets/js/titipbeli.js" defer></script>
+<script src="assets/js/main.js" defer></script>
+</body>
+</html>

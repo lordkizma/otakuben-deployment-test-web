@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pusat Bantuan &mdash; Otakuben</title>
+<meta name="description" content="Cara pesan, aturan pre-order, pengiriman, pengembalian, dan pertanyaan yang sering ditanyakan.">
+<meta name="theme-color" content="#08172B">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="site.webmanifest">
+
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/header.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/sections.css">
+<link rel="stylesheet" href="assets/css/shop.css">
+<link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+
+<body data-page="bantuan" data-auth="out">
+
+<a class="skip-link" href="#main">Lompat ke konten utama</a>
+
+<div data-layout-header></div>
+
+<main id="main" class="page">
+  <div class="shell">
+
+    <nav class="crumb" aria-label="Jalur navigasi">
+      <a href="index.html">Beranda</a>
+      <span class="sep" aria-hidden="true">/</span>
+      <span aria-current="page">Bantuan</span>
+    </nav>
+
+    <div class="page-head">
+      <h1>Pusat Bantuan</h1>
+      <p>Semua yang perlu kamu tahu soal pesanan, pre-order, pengiriman, dan akun.</p>
+    </div>
+
+    <section class="panel" id="cara-pesan" aria-labelledby="cara-judul">
+      <h2 id="cara-judul">Cara Pesan</h2>
+      <div class="langkah-grid" style="margin-top:18px">
+        <div class="langkah-kartu">
+          <span class="no-besar" aria-hidden="true">1</span>
+          <h3>Pilih Barang</h3>
+          <p>Cari di katalog, lalu masukkan ke keranjang. Item pre-order ditandai
+             label biru beserta estimasi rilisnya.</p>
+        </div>
+        <div class="langkah-kartu">
+          <span class="no-besar" aria-hidden="true">2</span>
+          <h3>Checkout</h3>
+          <p>Isi data penerima, pilih kurir, lalu pilih metode pembayaran yang
+             paling gampang buat kamu.</p>
+        </div>
+        <div class="langkah-kartu">
+          <span class="no-besar" aria-hidden="true">3</span>
+          <h3>Lacak</h3>
+          <p>Status pesanan bisa dipantau di halaman Akun, mulai dari pembayaran
+             sampai barang diterima.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="pengiriman" aria-labelledby="kirim-judul">
+      <h2 id="kirim-judul">Pengiriman</h2>
+      <div class="tabel-wrap" style="margin-top:16px">
+        <table class="tabel-biaya">
+          <thead>
+            <tr><th>Layanan</th><th>Estimasi</th><th>Biaya</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Reguler</td><td>3&ndash;5 hari kerja</td><td><b>Rp22.000</b></td></tr>
+            <tr><td>Kilat</td><td>1&ndash;2 hari kerja</td><td><b>Rp38.000</b></td></tr>
+            <tr><td>Kargo (barang besar)</td><td>5&ndash;8 hari kerja</td><td><b>Rp16.000</b></td></tr>
+            <tr><td>Ambil di showroom</td><td>Siap dalam 1 hari</td><td><b>Gratis</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:14px;font-size:12.5px;color:var(--slate-400)">
+        Tarif di atas masih contoh statis dan diatur di <code>assets/js/checkout.js</code>.
+      </p>
+    </section>
+
+    <section style="margin-top:26px" id="faq" aria-labelledby="faq-judul">
+      <div class="section-head">
+        <div class="title">
+          <span class="accent" aria-hidden="true"></span>
+          <h2 id="faq-judul">Pertanyaan yang Sering Muncul</h2>
+          <p>Kalau masih belum ketemu jawabannya, hubungi kami lewat WhatsApp.</p>
+        </div>
+      </div>
+
+      <details class="faq" open>
+        <summary>Apa itu pre-order dan kenapa harus DP?</summary>
+        <div class="isi">
+          <p>Pre-order artinya barang belum diproduksi atau belum sampai di gudang.
+             DP 30% dipakai untuk mengunci slot produksi, karena jumlahnya dibatasi
+             pabrik.</p>
+          <p>Sisa pembayaran diminta saat barang sudah siap kirim, dan kamu akan
+             dikabari lebih dulu.</p>
+        </div>
+      </details>
+
+      <details class="faq">
+        <summary>Kalau estimasi rilis pre-order mundur, gimana?</summary>
+        <div class="isi">
+          <p>Jadwal mundur itu hal biasa di dunia figure karena keputusannya ada di
+             pabrik. Kami akan memberi kabar setiap ada pembaruan, dan kamu boleh
+             membatalkan dengan pengembalian DP penuh kalau mundur lebih dari 6 bulan.</p>
+        </div>
+      </details>
+
+      <details class="faq">
+        <summary>Barang datang rusak, bisa ditukar?</summary>
+        <div class="isi">
+          <p>Bisa. Rekam video saat membuka paket, lalu laporkan dalam 3 hari setelah
+             barang diterima. Kalau kerusakan terjadi saat pengiriman, kami ganti unit
+             baru atau refund penuh.</p>
+        </div>
+      </details>
+
+      <details class="faq">
+        <summary>Kotak penyok termasuk cacat?</summary>
+        <div class="isi">
+          <p>Untuk kolektor yang mementingkan kondisi kotak, sebutkan di catatan
+             pesanan. Namun penyok ringan pada kotak luar tidak termasuk kategori
+             barang cacat karena isi produk tetap aman.</p>
+        </div>
+      </details>
+
+      <details class="faq" id="akun">
+        <summary>Lupa kata sandi akun, harus bagaimana?</summary>
+        <div class="isi">
+          <p>Fitur reset kata sandi masih menunggu backend aktif. Sementara ini,
+             hubungi kami lewat WhatsApp dengan menyebutkan email terdaftar.</p>
+        </div>
+      </details>
+
+      <details class="faq">
+        <summary>Apakah harga di titip beli sudah final?</summary>
+        <div class="isi">
+          <p>Belum. Angka di halaman <a href="titip-beli.html">Titip Beli</a> adalah
+             perkiraan berdasarkan kurs statis. Total final dikonfirmasi setelah barang
+             berhasil dibeli dan ditimbang di gudang Jepang.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="panel" style="margin-top:26px">
+      <h2>Masih butuh bantuan?</h2>
+      <p style="margin-top:8px;font-size:14px;color:var(--ink-soft)">
+        Tim kami aktif setiap hari, jam 09.00&ndash;21.00 WIB.
+      </p>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:16px">
+        <a class="btn btn-primary" href="#">Chat WhatsApp</a>
+        <a class="btn btn-ghost" href="#">Kirim Email</a>
+        <a class="btn btn-quiet" href="titip-beli.html">Ajukan Titip Beli</a>
+      </div>
+    </section>
+  </div>
+</main>
+
+<div data-layout-footer></div>
+
+<div class="toast" data-toast data-open="false" role="status" aria-live="polite"></div>
+
+<script src="assets/js/data.js" defer></script>
+<script src="assets/js/ui.js" defer></script>
+<script src="assets/js/cart.js" defer></script>
+<script src="assets/js/layout.js" defer></script>
+<script src="assets/js/auth.js" defer></script>
+<script src="assets/js/search.js" defer></script>
+<script src="assets/js/main.js" defer></script>
+</body>
+</html>
