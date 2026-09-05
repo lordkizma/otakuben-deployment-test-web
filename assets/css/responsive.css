@@ -1,0 +1,73 @@
+/* ==========================================================================
+   RESPONSIVE.CSS — media query. WAJIB dimuat paling akhir.
+   Breakpoint: 1080px (tablet lebar) → 860px (tablet) → 720px (mobile)
+   ========================================================================== */
+
+/* --- Tablet lebar: grid 3 kolom jadi 2 kolom --- */
+@media (max-width:1080px){
+  .hero-grid,
+  .secondary-grid{grid-template-columns:1fr 1fr;}
+
+  /* Banner utama & showroom melebar penuh */
+  .hero-card.b-preorder,
+  .secondary-card.b-showroom{grid-column:1 / -1;}
+
+  .tiles-grid{grid-template-columns:1fr 1fr;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+
+  .search{max-width:none;}
+  .kbd{display:none;}
+}
+
+/* --- Tablet: search bar disembunyikan, dipakai icon search --- */
+@media (max-width:860px){
+  .search{display:none;}
+  .header-inner{gap:12px;justify-content:space-between;}
+}
+
+/* --- Mobile: semua grid jadi 1 kolom --- */
+@media (max-width:720px){
+  :root{
+    --header-h:64px;
+    --gutter:16px;
+  }
+
+  .hero-grid,
+  .secondary-grid,
+  .tiles-grid,
+  .footer-grid{grid-template-columns:1fr;}
+
+  .hero-card.b-preorder,
+  .secondary-card.b-showroom,
+  .b-proxy{grid-column:auto;}
+
+  .b-preorder .body,
+  .b-showroom .body{max-width:100%;}
+  .b-preorder h2{font-size:25px;}
+  .b-gacha p{max-width:100%;}
+
+  /* Dekorasi & viewer disembunyikan biar teks lega */
+  .b-preorder .deco,
+  .b-gacha .deco,
+  .showroom-viewer{display:none;}
+
+  /* Header dirapatkan: 4 icon tetap tampil, teks logo disembunyikan.
+     Dibatasi ke .site-header supaya logo footer tetap lengkap. */
+  .site-header .logo-text{display:none;}
+  .icon-btn{width:40px;height:40px;}
+  .header-divider{margin-inline:6px;height:22px;}
+  .btn-auth{height:40px;padding:0 14px;font-size:13px;}
+  .btn-auth svg{display:none;}
+  .auth-menu{right:-4px;}
+
+  .explore{padding:36px 0 48px;}
+  .section-head{flex-direction:column;align-items:flex-start;gap:14px;}
+
+  .footer-bottom{flex-direction:column;align-items:flex-start;gap:10px;}
+}
+
+/* --- Layar sangat kecil (<=380px) --- */
+@media (max-width:380px){
+  .icon-btn{width:38px;height:38px;}
+  .proxy-sources{grid-template-columns:1fr;}
+}

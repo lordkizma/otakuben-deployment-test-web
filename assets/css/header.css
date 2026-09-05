@@ -1,0 +1,173 @@
+/* ==========================================================================
+   HEADER.CSS — top bar: logo, search, action icon, area auth
+   ========================================================================== */
+
+.site-header{
+  position:fixed;inset:0 0 auto 0;z-index:100;
+  height:var(--header-h);
+  background:rgba(8,23,43,.97);
+  backdrop-filter:saturate(140%) blur(8px);
+  border-bottom:1px solid rgba(255,255,255,.10);
+}
+
+.header-inner{
+  height:var(--header-h);
+  display:flex;align-items:center;gap:24px;
+}
+
+/* --------------------------------------------------------------------------
+   Logo (kiri)
+   -------------------------------------------------------------------------- */
+.logo{
+  display:flex;align-items:center;gap:12px;flex:0 0 auto;
+  padding:6px 4px;border-radius:var(--radius-sm);
+  transition:opacity .18s var(--ease);
+}
+.logo:hover{opacity:.82;}
+.logo-mark{width:38px;height:38px;flex:0 0 38px;border-radius:11px;}
+.logo-text{display:flex;flex-direction:column;line-height:1.15;}
+.logo-text b{color:#fff;font-size:14.5px;font-weight:650;letter-spacing:.01em;}
+.logo-text span{
+  color:var(--slate-400);font-size:11px;
+  letter-spacing:.13em;text-transform:uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   Search (tengah)
+   -------------------------------------------------------------------------- */
+.search{flex:1 1 auto;min-width:0;max-width:520px;margin-inline:auto;}
+
+.search-field{
+  display:flex;align-items:center;gap:10px;
+  height:44px;padding:0 6px 0 14px;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:var(--radius);
+  transition:background .18s var(--ease), border-color .18s var(--ease), box-shadow .18s var(--ease);
+}
+.search-field:hover{background:rgba(255,255,255,.11);border-color:rgba(255,255,255,.28);}
+.search-field:focus-within{
+  background:rgba(255,255,255,.13);
+  border-color:var(--cyan);
+  box-shadow:0 0 0 3px rgba(42,166,196,.22);
+}
+
+.search-field input{
+  flex:1 1 auto;min-width:0;height:100%;
+  border:0;background:none;color:#fff;font-size:14.5px;
+}
+.search-field input::placeholder{color:rgba(255,255,255,.55);}
+.search-field input:focus{outline:none;}
+.search-field input::-webkit-search-cancel-button{filter:invert(1) opacity(.5);}
+
+.kbd{
+  flex:0 0 auto;
+  color:rgba(255,255,255,.6);font-size:11px;letter-spacing:.04em;
+  border:1px solid rgba(255,255,255,.2);border-radius:6px;padding:3px 7px;
+}
+
+.search-submit{
+  flex:0 0 auto;width:34px;height:34px;
+  display:grid;place-items:center;border-radius:7px;
+  background:var(--cyan);color:var(--cyan-ink);
+  transition:background .18s var(--ease), transform .18s var(--ease);
+}
+.search-submit:hover{background:#3FBCD9;transform:scale(1.05);}
+.search-submit:active{transform:scale(.96);}
+.search-submit svg{width:17px;height:17px;}
+
+/* --------------------------------------------------------------------------
+   Action icon (kanan) — filter, keranjang, transaksi, riwayat
+   -------------------------------------------------------------------------- */
+.actions{display:flex;align-items:center;gap:2px;flex:0 0 auto;}
+
+.icon-btn{
+  position:relative;
+  width:44px;height:44px;
+  display:grid;place-items:center;border-radius:var(--radius-sm);
+  color:rgba(255,255,255,.78);
+  transition:background .16s var(--ease), color .16s var(--ease);
+}
+.icon-btn:hover{background:rgba(255,255,255,.11);color:#fff;}
+.icon-btn svg{width:21px;height:21px;}
+
+/* Tooltip kecil di bawah icon */
+.icon-btn .tip{
+  position:absolute;top:calc(100% + 8px);left:50%;
+  transform:translateX(-50%) translateY(-3px);
+  background:var(--navy-700);color:#fff;
+  font-size:11.5px;white-space:nowrap;
+  padding:5px 9px;border-radius:6px;
+  border:1px solid rgba(255,255,255,.14);
+  opacity:0;pointer-events:none;
+  transition:opacity .16s var(--ease), transform .16s var(--ease);
+}
+.icon-btn:hover .tip,
+.icon-btn:focus-visible .tip{opacity:1;transform:translateX(-50%) translateY(0);}
+
+.header-divider{
+  flex:0 0 auto;width:1px;height:26px;
+  margin-inline:10px;background:rgba(255,255,255,.16);
+}
+
+/* --------------------------------------------------------------------------
+   Area autentikasi
+   Default = tombol "Masuk / Daftar".
+   State login diaktifkan lewat body[data-auth="in"] (lihat js/auth.js).
+   -------------------------------------------------------------------------- */
+.auth{position:relative;flex:0 0 auto;}
+
+.btn-auth{
+  display:inline-flex;align-items:center;gap:8px;
+  height:44px;padding:0 18px;border-radius:var(--radius-sm);
+  background:var(--gold);color:var(--gold-ink);
+  font-size:14px;font-weight:650;white-space:nowrap;
+  transition:background .18s var(--ease), transform .18s var(--ease), box-shadow .18s var(--ease);
+}
+.btn-auth:hover{background:#EFC77C;box-shadow:0 6px 18px rgba(224,180,99,.28);transform:translateY(-1px);}
+.btn-auth:active{transform:translateY(0);}
+.btn-auth svg{width:17px;height:17px;}
+
+/* Varian sudah login */
+.auth-user{
+  display:none;align-items:center;gap:10px;
+  height:44px;padding:0 8px 0 6px;border-radius:var(--radius-sm);
+  border:1px solid rgba(255,255,255,.16);
+  transition:background .16s var(--ease);
+}
+.auth-user:hover{background:rgba(255,255,255,.09);}
+.auth-user .avatar{
+  width:30px;height:30px;border-radius:50%;
+  display:grid;place-items:center;
+  background:linear-gradient(140deg,var(--cyan),var(--cyan-deep));
+  color:var(--cyan-ink);font-size:12.5px;font-weight:700;
+}
+.auth-user .greet{color:#fff;font-size:13.5px;}
+.auth-user .caret{color:rgba(255,255,255,.55);transition:transform .18s var(--ease);}
+.auth-user[aria-expanded="true"] .caret{transform:rotate(180deg);}
+
+/* Dropdown profil */
+.auth-menu{
+  position:absolute;top:calc(100% + 10px);right:0;
+  min-width:210px;padding:6px;
+  background:var(--surface);
+  border:1px solid var(--border);border-radius:var(--radius);
+  box-shadow:var(--shadow-hover);
+  display:none;
+}
+.auth-menu[data-open="true"]{display:block;}
+.auth-menu a{
+  display:flex;align-items:center;gap:10px;
+  min-height:44px;padding:0 12px;border-radius:var(--radius-sm);
+  font-size:14px;color:var(--ink);
+  transition:background .14s var(--ease), color .14s var(--ease);
+}
+.auth-menu a:hover{background:var(--surface-2);}
+.auth-menu a.danger{color:#B4483C;}
+.auth-menu a.danger:hover{background:#FCE9E7;}
+.auth-menu hr{margin:6px 8px;border:0;border-top:1px solid var(--border);}
+
+/* Pertukaran state login / logout */
+body[data-auth="in"] .btn-auth{display:none;}
+body[data-auth="in"] .auth-user{display:flex;}
+body[data-auth="out"] .auth-menu{display:none;}

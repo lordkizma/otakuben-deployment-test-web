@@ -1,0 +1,142 @@
+/* ==========================================================================
+   COMPONENTS.CSS — elemen yang dipakai berulang: card, tombol, pill, chip
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Card / banner dasar
+   -------------------------------------------------------------------------- */
+.card{
+  position:relative;overflow:hidden;
+  border-radius:var(--radius-lg);
+  background:var(--surface);
+  border:1px solid var(--border);
+  box-shadow:var(--shadow);
+  transition:transform .22s var(--ease), box-shadow .22s var(--ease), border-color .22s var(--ease);
+}
+.card:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover);border-color:var(--slate-200);}
+.card:active{transform:translateY(-1px);}
+.card.dark{border-color:rgba(255,255,255,.10);}
+
+/* Isi banner selalu di atas lapisan dekorasi */
+.card .body{position:relative;z-index:2;}
+
+/* --------------------------------------------------------------------------
+   Pill / label kecil
+   -------------------------------------------------------------------------- */
+.pill{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 10px;border-radius:999px;
+  font-size:11px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;
+}
+.pill-gold{background:var(--gold);color:var(--gold-ink);}
+.pill-ink{background:var(--gold-ink);color:var(--gold-soft);}
+.pill-cyan{background:rgba(42,166,196,.25);color:#9FE2F1;border:1px solid rgba(42,166,196,.45);}
+.pill-glass{background:rgba(255,255,255,.14);color:#fff;}
+
+/* --------------------------------------------------------------------------
+   Tombol
+   -------------------------------------------------------------------------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:44px;padding:0 18px;border-radius:var(--radius-sm);
+  font-size:14px;font-weight:650;text-align:center;
+  transition:background .18s var(--ease), color .18s var(--ease),
+             border-color .18s var(--ease), transform .18s var(--ease), box-shadow .18s var(--ease);
+}
+.btn:active{transform:translateY(0);}
+
+.btn-primary{background:var(--gold);color:var(--gold-ink);}
+.btn-primary:hover{background:#EFC77C;transform:translateY(-1px);box-shadow:0 8px 20px rgba(224,180,99,.30);}
+
+.btn-cyan{background:var(--cyan);color:var(--cyan-ink);}
+.btn-cyan:hover{background:#3FBCD9;transform:translateY(-1px);box-shadow:0 8px 20px rgba(42,166,196,.30);}
+
+.btn-ink{background:var(--gold-ink);color:var(--gold-soft);}
+.btn-ink:hover{background:#43310B;transform:translateY(-1px);}
+
+.btn-ghost{border:1px solid rgba(255,255,255,.34);color:#fff;}
+.btn-ghost:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.6);transform:translateY(-1px);}
+
+.btn-quiet{border:1px solid var(--border);background:var(--surface);color:var(--ink);}
+.btn-quiet:hover{border-color:var(--slate-400);background:var(--surface-2);}
+
+/* Link dengan panah yang melebar saat hover */
+.link-arrow{
+  display:inline-flex;align-items:center;gap:7px;
+  font-size:13.5px;font-weight:650;
+  transition:gap .18s var(--ease);
+}
+.link-arrow:hover{gap:12px;}
+.link-arrow svg{width:15px;height:15px;}
+.link-gold{color:var(--gold);}
+.link-cyan{color:var(--cyan-deep);}
+.card:hover .link-arrow{gap:12px;}
+
+/* --------------------------------------------------------------------------
+   Chip kategori
+   -------------------------------------------------------------------------- */
+.chip{
+  display:inline-flex;align-items:center;gap:8px;
+  min-height:44px;padding:0 16px;border-radius:999px;
+  background:var(--surface);border:1px solid var(--border);
+  font-size:13.5px;font-weight:600;color:var(--slate-600);
+  transition:background .16s var(--ease), border-color .16s var(--ease),
+             color .16s var(--ease), transform .16s var(--ease), box-shadow .16s var(--ease);
+}
+.chip:hover{
+  background:var(--navy-800);border-color:transparent;color:#fff;
+  transform:translateY(-2px);box-shadow:var(--shadow-hover);
+}
+.chip[aria-current="true"]{background:var(--navy-800);border-color:transparent;color:#fff;}
+.chip .count{font-size:11.5px;font-weight:600;color:var(--slate-400);}
+.chip:hover .count,
+.chip[aria-current="true"] .count{color:rgba(255,255,255,.62);}
+
+/* --------------------------------------------------------------------------
+   Source chip (kartu titip beli)
+   -------------------------------------------------------------------------- */
+.source-chip{
+  display:flex;align-items:center;gap:8px;
+  min-height:44px;padding:0 10px;
+  background:var(--canvas);border:1px solid var(--border);border-radius:var(--radius-sm);
+  font-size:12.5px;font-weight:600;color:var(--slate-600);
+  transition:background .16s var(--ease), border-color .16s var(--ease),
+             color .16s var(--ease), transform .16s var(--ease);
+}
+.source-chip:hover{background:var(--cyan-soft);border-color:var(--cyan);color:var(--cyan-deep);transform:translateY(-1px);}
+.source-chip .dot{
+  flex:0 0 8px;width:8px;height:8px;border-radius:50%;
+  background:var(--slate-400);transition:background .16s var(--ease);
+}
+.source-chip:hover .dot{background:var(--cyan);}
+
+/* --------------------------------------------------------------------------
+   Tombol navigasi viewer 360°
+   -------------------------------------------------------------------------- */
+.viewer-nav{
+  position:absolute;top:50%;transform:translateY(-50%);z-index:3;
+  width:30px;height:30px;border-radius:50%;
+  display:grid;place-items:center;
+  background:rgba(255,255,255,.9);color:var(--navy-800);
+  transition:background .16s var(--ease), transform .16s var(--ease);
+}
+.viewer-nav:hover{background:#fff;transform:translateY(-50%) scale(1.08);}
+.viewer-nav.prev{left:8px;}
+.viewer-nav.next{right:8px;}
+.viewer-nav svg{width:14px;height:14px;}
+
+/* --------------------------------------------------------------------------
+   Toast (notifikasi kecil dari JS)
+   -------------------------------------------------------------------------- */
+.toast{
+  position:fixed;left:50%;bottom:28px;z-index:300;
+  transform:translateX(-50%) translateY(14px);
+  max-width:min(92vw,420px);
+  padding:12px 18px;border-radius:var(--radius);
+  background:var(--navy-800);color:#fff;
+  font-size:14px;box-shadow:var(--shadow-hover);
+  opacity:0;pointer-events:none;
+  transition:opacity .2s var(--ease), transform .2s var(--ease);
+}
+.toast[data-open="true"]{opacity:1;transform:translateX(-50%) translateY(0);}

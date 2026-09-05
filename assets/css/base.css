@@ -1,0 +1,136 @@
+/* ==========================================================================
+   BASE.CSS — design token, reset, tipografi, utility
+   Semua warna & jarak diatur di sini. Ubah token = ubah seluruh tampilan.
+   ========================================================================== */
+
+:root{
+  /* --- Warna inti: navy dalam / slate / gold + highlight cyan --- */
+  --navy-900:#08172B;
+  --navy-800:#0C2039;
+  --navy-700:#12294A;
+  --slate-600:#33475F;
+  --slate-400:#6B7F97;
+  --slate-200:#C3CEDA;
+
+  --gold:#E0B463;
+  --gold-ink:#2A1E06;
+  --gold-soft:#F6ECD8;
+  --cyan:#2AA6C4;
+  --cyan-deep:#127E9B;
+  --cyan-ink:#04222C;
+  --cyan-soft:#E4F3F7;
+
+  /* --- Netral --- */
+  --canvas:#F7F7F5;
+  --surface:#FFFFFF;
+  --surface-2:#F0EFED;
+  --border:#E3E5E8;
+  --ink:#1B2733;
+  --ink-soft:#5F6B78;
+
+  /* --- Sistem --- */
+  --radius-sm:8px;
+  --radius:10px;
+  --radius-lg:12px;
+  --shadow:0 1px 2px rgba(8,23,43,.05), 0 4px 12px rgba(8,23,43,.05);
+  --shadow-hover:0 2px 4px rgba(8,23,43,.07), 0 12px 28px rgba(8,23,43,.12);
+  --ease:cubic-bezier(.2,.7,.3,1);
+
+  /* --- Ukuran layout --- */
+  --header-h:72px;
+  --shell:1180px;
+  --gutter:24px;
+  --gap:16px;
+
+  /* --- Tipografi --- */
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+
+/* --------------------------------------------------------------------------
+   Reset ringan
+   -------------------------------------------------------------------------- */
+*,*::before,*::after{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+
+body{
+  background:var(--canvas);
+  color:var(--ink);
+  font-family:var(--font);
+  font-size:16px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+}
+
+img,svg,video{display:block;max-width:100%;}
+ul,ol{margin:0;padding:0;list-style:none;}
+a{color:inherit;text-decoration:none;}
+button{font:inherit;color:inherit;background:none;border:0;}
+input,select,textarea{font:inherit;}
+
+/* Semua elemen aksi wajib terasa bisa diklik */
+a,button,[role="button"],label[for],.clickable{cursor:pointer;}
+
+/* Fokus keyboard yang jelas (aksesibilitas) */
+:focus-visible{
+  outline:2px solid var(--cyan);
+  outline-offset:3px;
+  border-radius:6px;
+}
+
+/* --------------------------------------------------------------------------
+   Tipografi dasar
+   -------------------------------------------------------------------------- */
+h1,h2,h3,h4{margin:0;font-weight:700;letter-spacing:-.015em;line-height:1.2;}
+p{margin:0;}
+
+.eyebrow{
+  display:inline-block;
+  font-size:11px;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   Utility
+   -------------------------------------------------------------------------- */
+.shell{
+  width:100%;max-width:var(--shell);
+  margin-inline:auto;
+  padding-inline:var(--gutter);
+}
+
+/* Teks khusus screen reader */
+.sr-only{
+  position:absolute;width:1px;height:1px;
+  padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0 0 0 0);white-space:nowrap;border:0;
+}
+
+/* Link "lompat ke konten" */
+.skip-link{
+  position:absolute;top:-60px;left:var(--gutter);z-index:200;
+  background:var(--surface);color:var(--ink);
+  padding:12px 18px;border-radius:var(--radius-sm);
+  font-size:14px;font-weight:650;box-shadow:var(--shadow-hover);
+  transition:top .18s var(--ease);
+}
+.skip-link:focus{top:12px;}
+
+/* Lapisan dekorasi (SVG latar di dalam banner) */
+.deco{
+  position:absolute;z-index:1;
+  pointer-events:none;user-select:none;
+}
+.deco-fill{inset:0;width:100%;height:100%;}
+
+/* Hormati preferensi "kurangi animasi" */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{
+    transition-duration:.01ms !important;
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+  }
+}

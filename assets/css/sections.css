@@ -1,0 +1,223 @@
+/* ==========================================================================
+   SECTIONS.CSS — layout tiap bagian halaman + gaya banner spesifik
+   Urutan: hero grid → banner sekunder → kategori & titip beli → explore → footer
+   ========================================================================== */
+
+main{padding-top:var(--header-h);}
+
+/* ==========================================================================
+   1. HERO GRID (3 banner atas)
+   ========================================================================== */
+.hero{padding:28px 0 0;}
+.hero-grid{display:grid;grid-template-columns:1.55fr 1fr 1fr;gap:var(--gap);}
+.hero-card{min-height:268px;display:flex;}
+
+/* --- Banner besar kiri: Pre-Order --- */
+.b-preorder{
+  color:#fff;
+  background:
+    radial-gradient(120% 130% at 8% 0%, rgba(42,166,196,.34) 0%, transparent 58%),
+    radial-gradient(90% 120% at 100% 100%, rgba(224,180,99,.24) 0%, transparent 60%),
+    linear-gradient(135deg,var(--navy-800) 0%,var(--navy-900) 100%);
+}
+.b-preorder .body{
+  padding:32px;max-width:64%;
+  display:flex;flex-direction:column;justify-content:center;gap:16px;
+}
+.b-preorder .eyebrow{color:var(--gold);}
+.b-preorder h2{font-size:30px;line-height:1.15;letter-spacing:-.02em;}
+.b-preorder p{color:var(--slate-200);font-size:14px;max-width:34ch;}
+.b-preorder .row{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px;}
+.b-preorder .deco{right:-6px;top:0;bottom:0;width:44%;height:100%;opacity:.95;}
+
+/* --- Banner tengah: Member Rewards --- */
+.b-rewards{
+  color:#3B2C10;
+  background:
+    radial-gradient(100% 100% at 100% 0%, rgba(255,255,255,.85) 0%, transparent 55%),
+    linear-gradient(158deg,#F6ECD8 0%,#EEDDBD 48%,#E7D0A6 100%);
+}
+.b-rewards .body{padding:26px;display:flex;flex-direction:column;gap:12px;height:100%;}
+.b-rewards .pill{align-self:flex-start;}
+.b-rewards h3{font-size:22px;}
+.b-rewards p{font-size:13.5px;color:#6A5527;}
+.b-rewards .btn{align-self:flex-start;}
+.points{
+  display:flex;align-items:baseline;gap:6px;
+  margin-top:auto;padding-top:14px;
+  border-top:1px solid rgba(42,30,6,.14);
+}
+.points b{font-size:30px;line-height:1;letter-spacing:-.02em;}
+.points span{font-size:12px;color:#6A5527;letter-spacing:.06em;text-transform:uppercase;}
+/* Lingkaran dekorasi pojok kanan atas */
+.b-rewards .coin{
+  position:absolute;z-index:1;right:-34px;top:-34px;
+  width:150px;height:150px;border-radius:50%;
+  border:14px solid rgba(255,255,255,.5);
+}
+
+/* --- Banner kanan: Character Showcase --- */
+.b-character{
+  color:#fff;
+  background:
+    radial-gradient(85% 85% at 50% 12%, rgba(42,166,196,.42) 0%, transparent 62%),
+    linear-gradient(180deg,#153454 0%,#0A1A2E 100%);
+}
+.b-character .body{padding:24px 24px 22px;display:flex;flex-direction:column;height:100%;}
+.b-character .pill{align-self:flex-start;}
+.b-character h3{margin:14px 0 6px;font-size:21px;}
+.b-character .meta{font-size:12.5px;color:var(--slate-200);letter-spacing:.04em;}
+.b-character .link-arrow{margin-top:auto;position:relative;z-index:3;}
+.b-character .deco{inset:auto 0 0 0;width:100%;height:62%;opacity:.6;}
+
+/* ==========================================================================
+   2. BANNER SEKUNDER (showroom 360°, event sale, gacha)
+   ========================================================================== */
+.secondary{padding:var(--gap) 0 0;}
+.secondary-grid{display:grid;grid-template-columns:1.55fr 1fr 1fr;gap:var(--gap);}
+.secondary-card{min-height:196px;display:flex;}
+
+/* --- Showroom 360° --- */
+.b-showroom{
+  color:#fff;
+  background:
+    radial-gradient(100% 120% at 0% 0%, rgba(42,166,196,.2) 0%, transparent 55%),
+    linear-gradient(120deg,#1C2A38 0%,#101C28 100%);
+}
+.b-showroom .body{
+  padding:28px;max-width:58%;
+  display:flex;flex-direction:column;justify-content:center;gap:14px;
+}
+.b-showroom h3{font-size:24px;}
+.b-showroom h3 em{font-style:normal;color:var(--cyan);}
+.b-showroom p{font-size:13.5px;color:var(--slate-200);max-width:30ch;}
+.b-showroom .btn{align-self:flex-start;}
+
+/* Kotak viewer di kanan (diisi js/showroom.js) */
+.showroom-viewer{
+  position:absolute;right:24px;top:50%;transform:translateY(-50%);z-index:2;
+  width:34%;aspect-ratio:16/11;
+  border-radius:var(--radius);overflow:hidden;
+  border:1px solid rgba(255,255,255,.18);
+  background:linear-gradient(160deg,#2C3D4E,#16222E);
+}
+.showroom-viewer img{width:100%;height:100%;object-fit:cover;}
+.showroom-label{
+  position:absolute;left:8px;bottom:8px;z-index:3;
+  padding:4px 8px;border-radius:6px;
+  background:rgba(8,23,43,.72);
+  font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#fff;
+}
+
+/* --- Event sale --- */
+.b-sale{
+  color:#fff;
+  background:
+    radial-gradient(90% 90% at 85% 15%, rgba(224,180,99,.5) 0%, transparent 60%),
+    linear-gradient(150deg,#25405C 0%,#122438 100%);
+}
+.b-sale .body{padding:24px;display:flex;flex-direction:column;height:100%;}
+.b-sale .pill{align-self:flex-start;}
+.b-sale h3{margin-top:12px;font-size:23px;}
+.b-sale .disc{margin-top:auto;font-size:13px;color:var(--slate-200);}
+.b-sale .disc b{color:var(--gold);font-size:15px;}
+.b-sale .deco{opacity:.5;}
+
+/* --- Gacha / blind box --- */
+.b-gacha{
+  color:#fff;
+  background:
+    radial-gradient(80% 80% at 20% 100%, rgba(42,166,196,.42) 0%, transparent 60%),
+    linear-gradient(160deg,#20304A 0%,#0D1A2B 100%);
+}
+.b-gacha .body{padding:24px;display:flex;flex-direction:column;height:100%;}
+.b-gacha .pill{align-self:flex-start;}
+.b-gacha h3{margin:12px 0 6px;font-size:23px;}
+.b-gacha p{font-size:13px;color:var(--slate-200);max-width:66%;}
+.b-gacha .btn{margin-top:auto;align-self:flex-start;}
+.b-gacha .deco{right:-18px;bottom:-14px;width:124px;opacity:.7;}
+
+/* ==========================================================================
+   3. KARTU KATEGORI + TITIP BELI
+   ========================================================================== */
+.tiles{padding:var(--gap) 0 0;}
+.tiles-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1.3fr;gap:var(--gap);}
+
+.cat-banner{display:flex;flex-direction:column;min-height:186px;}
+.cat-banner .body{
+  flex:1 1 auto;padding:22px 22px 18px;
+  display:flex;flex-direction:column;justify-content:center;gap:7px;
+}
+.cat-banner .eyebrow{color:var(--cyan);}
+.cat-banner h3{font-size:20px;color:#fff;}
+.cat-banner p{font-size:12.5px;color:var(--slate-200);}
+
+/* Strip brand/kategori di bawah kartu */
+.brand-tile{
+  position:relative;z-index:2;flex:0 0 auto;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:12px 22px;
+  border-top:1px solid rgba(255,255,255,.14);
+  transition:background .2s var(--ease);
+}
+.cat-banner:hover .brand-tile{background:rgba(255,255,255,.06);}
+.brand-tile span{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.6);}
+.brand-tile b{font-size:15px;font-weight:750;letter-spacing:.02em;color:#fff;}
+
+.b-cat-1{background:linear-gradient(120deg,#14324B 0%,#0A1C2C 100%);}
+.b-cat-1 .brand-tile{background:linear-gradient(160deg,#17475E,#0F3244);}
+.b-cat-2{background:linear-gradient(120deg,#1E3350 0%,#0C1B2E 100%);}
+.b-cat-2 .brand-tile{background:linear-gradient(160deg,#2B3F5E,#16263C);}
+.b-cat-3{background:linear-gradient(120deg,#153A4A 0%,#0A1F2B 100%);}
+.b-cat-3 .brand-tile{background:linear-gradient(160deg,#1C4A5A,#103440);}
+.cat-banner .deco{opacity:.4;}
+
+/* --- Kartu titip beli / proxy request --- */
+.b-proxy{background:var(--surface);padding:22px;display:flex;flex-direction:column;gap:14px;}
+.b-proxy .eyebrow{color:var(--cyan-deep);}
+.b-proxy h3{margin-top:2px;font-size:20px;}
+.b-proxy p{font-size:13px;color:var(--ink-soft);}
+.b-proxy p a{
+  color:var(--cyan-deep);font-weight:650;
+  text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:2px;
+}
+.b-proxy p a:hover{color:var(--cyan);}
+.proxy-sources{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.proxy-more{font-size:11.5px;color:var(--slate-400);text-align:right;letter-spacing:.02em;}
+
+/* ==========================================================================
+   4. EXPLORE BY CATEGORY
+   ========================================================================== */
+.explore{padding:48px 0 64px;}
+.section-head{
+  display:flex;align-items:flex-end;justify-content:space-between;gap:24px;
+  padding-bottom:16px;border-bottom:1px solid var(--border);
+}
+.section-head .accent{
+  display:block;width:34px;height:3px;margin-bottom:12px;
+  border-radius:2px;background:var(--gold);
+}
+.section-head h2{font-size:26px;letter-spacing:-.02em;}
+.section-head .title p{margin-top:6px;font-size:14px;color:var(--ink-soft);}
+.section-head .link-arrow{white-space:nowrap;}
+
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px;}
+
+/* ==========================================================================
+   5. FOOTER
+   ========================================================================== */
+.site-footer{background:var(--navy-900);color:#fff;padding:48px 0 28px;}
+.footer-grid{
+  display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px;
+  padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,.12);
+}
+.footer-brand p{margin-top:12px;font-size:13.5px;color:var(--slate-400);max-width:32ch;}
+.footer-col h4{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate-400);}
+.footer-col ul{margin-top:14px;display:flex;flex-direction:column;gap:10px;}
+.footer-col a{font-size:13.5px;color:rgba(255,255,255,.82);transition:color .16s var(--ease);}
+.footer-col a:hover{color:var(--cyan);}
+.footer-bottom{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding-top:20px;font-size:12.5px;color:var(--slate-400);
+}
+.footer-bottom a:hover{color:var(--cyan);}
