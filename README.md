@@ -1,100 +1,108 @@
-# Otakuben — Front-End Toko Figure & Hobby
+# Otakuben - Front-End Toko Figure & Hobi
 
-Front-end statis (HTML + CSS + JavaScript murni) untuk toko action figure, gunpla,
-nendoroid, blind box, trading card, apparel, dan jasa titip beli dari Jepang.
-Belum ada back-end: semua data produk ada di `assets/js/data.js` dan status
-keranjang/akun disimpan di `localStorage` browser.
+Situs statis (HTML + CSS + JS vanilla, tanpa build step) untuk toko figure, gunpla,
+merchandise hobi, dan jasa titip beli dari Jepang. Back-end belum ada: semua data
+masih dari `assets/js/data.js` dan state disimpan di `localStorage`.
 
-**Live (GitHub Pages):** https://lordkizma.github.io/otakuben-deployment-test-web/
+## Versi 3 - lapisan animasi
 
----
+Beranda dirombak total dengan konsep sendiri ("rak kaca" + "kotak bento koleksi").
+Header dan footer sengaja dibiarkan sama seperti versi sebelumnya.
 
-## Cara menjalankan
+Seksi beranda:
 
-Cukup buka `index.html` di browser. Kalau mau mirip kondisi hosting:
+1. **Vault** - hero dengan lemari kaca 3D (three.js) yang ikut gerak mengikuti kursor.
+2. **Kotak Bento Koleksi** - grid kategori dengan tutup kotak yang tergeser saat scroll.
+3. **Rak Berjalan** - scroll horizontal yang di-pin, 5 bay produk.
+4. **Gacha Kapsul** - kapsul 3D bisa diseret, dibuka, keluar hadiah + kode promo (maks 3x per sesi).
+5. **Jalur Produksi** - timeline pre-order yang terisi mengikuti scroll.
+6. **Meja Kerja** - kartu titip beli (marquee sumber) + kartu poin kolektor.
+7. **Suara Kolektor** - dua baris marquee testimoni berlawanan arah.
+8. **Explore By Category** - chip kategori.
 
-```bash
-python3 -m http.server 8000
-# buka http://localhost:8000
+### Library animasi (semua via CDN)
+
+| Library | Versi | Dipakai untuk |
+| --- | --- | --- |
+| GSAP + ScrollTrigger | 3.12.5 | reveal, pin scroll horizontal, scrub, marquee, kursor |
+| anime.js | 3.2.2 | pop kartu, goyang kapsul, counter angka |
+| AOS | 2.3.4 | reveal sederhana pada stasiun jalur & kartu meja |
+| Lenis | 1.0.42 | smooth scroll |
+| SplitType | 0.3.4 | pecah judul hero jadi per-huruf |
+| three.js | 0.149.0 (build UMD) | lemari kaca hero + kapsul gacha |
+| canvas-confetti | 1.9.3 | ledakan confetti saat kapsul terbuka |
+
+### Kontrak fallback `.libs-on`
+
+Semua state "disembunyikan dulu" (opacity 0, tutup kotak, dll) ditulis di bawah
+selector `html.libs-on`. Class itu **hanya** ditambahkan oleh `assets/js/motion.js`
+setelah library CDN terbukti ada. Efeknya:
+
+- CDN gagal / offline -> situs tetap tampil penuh sebagai situs statis biasa.
+- `prefers-reduced-motion: reduce` -> `html.motion-off`, animasi berat dimatikan.
+- WebGL tidak tersedia -> canvas dilewati, gambar cadangan (`.vault-fallback`,
+  `.gacha-fallback`) yang tampil.
+
+## Struktur
+
+```
+index.html          beranda (konsep v3)
+katalog.html        daftar produk + filter
+produk.html         detail produk (?id=sf-001)
+keranjang.html      keranjang + promo
+checkout.html       alamat, kurir, pembayaran
+akun.html           profil, transaksi, wishlist, poin
+masuk.html          masuk / daftar
+titip-beli.html      estimasi titip beli Jepang
+bantuan.html        FAQ & kebijakan
+404.html            halaman tidak ditemukan
+assets/css/         base, header, components, sections, shop, home, motion, responsive
+assets/js/          data, ui, cart, layout, auth, search, + modul per halaman
+assets/img/         ilustrasi & pattern SVG
 ```
 
-Deploy = upload semua isi folder ini apa adanya. Tidak butuh build step,
-npm install, atau framework.
+### Urutan CSS (penting)
 
----
+`base -> header -> components -> sections -> shop -> home -> (aos.css) -> motion -> responsive`
 
-## Struktur folder
+### Urutan JS (semua `defer`)
 
-```
-.
-├── index.html            beranda: hero, banner, terlaris, pre-order, kategori
-├── katalog.html          daftar produk + filter + sortir
-├── produk.html           detail produk (?id=sf-001)
-├── keranjang.html        keranjang + kode promo
-├── checkout.html         data penerima, kurir, pembayaran, ringkasan
-├── masuk.html            masuk / daftar (?mode=daftar)
-├── akun.html             pesanan, riwayat, poin, wishlist (#pesanan, #poin, ...)
-├── titip-beli.html       form jastip Jepang + estimasi biaya otomatis
-├── bantuan.html          FAQ, cara pesan, rincian biaya
-├── 404.html              halaman tidak ditemukan
-├── favicon.svg  robots.txt  site.webmanifest
-└── assets/
-    ├── css/   base, components, header, sections, shop, responsive
-    ├── js/    modul-modul kecil, satu file satu tanggung jawab
-    └── img/   SVG dekoratif & logo
-```
+Library CDN -> `data` -> `ui` -> `cart` -> `layout` -> `auth` -> `search` ->
+`categories` -> `motion` -> `home3d` -> `home` -> `main`.
 
-## Urutan CSS (jangan diacak)
+`main.js` selalu terakhir karena dia yang memanggil `init()` semua modul, dan tiap
+pemanggilan dijaga `if (App.x)` sehingga halaman yang tidak memuat modul tertentu
+tetap aman.
 
-`base` → `header` → `components` → `sections` → `shop` → `responsive`
+## Penyimpanan lokal
 
-`responsive.css` **harus paling akhir** karena isinya media query yang menimpa
-aturan di atasnya.
-
-## Urutan JavaScript
-
-Semua file pakai `<script defer>` biasa (bukan ES module) dan menempel ke objek
-global `window.App`. Aturan penting: **`main.js` selalu dimuat paling akhir**,
-karena hanya `main.js` yang memanggil `init()` tiap modul.
-
-| File | Tugas |
-|---|---|
-| `data.js` | 24 produk, 8 kategori, format rupiah, helper pencarian |
-| `layout.js` | menyuntik header & footer ke `[data-layout-header]` / `[data-layout-footer]` |
-| `ui.js` | kartu produk, gambar placeholder, badge, wishlist |
-| `cart.js` | isi keranjang, jumlah, subtotal, event `cart:change` |
-| `catalog.js` | filter kategori/harga/brand, sortir, hasil |
-| `product.js` | galeri, spesifikasi, qty, produk terkait |
-| `keranjang.js` | baris keranjang, promo, ringkasan |
-| `checkout.js` | validasi form, ongkir, pembuatan nomor invoice |
-| `account.js` | tab akun, pesanan, poin, wishlist |
-| `titipbeli.js` | hitung estimasi jastip (kurs, fee, ongkir Jepang) |
-| `masuk.js` | tab masuk/daftar + validasi |
-| `beranda.js` | deret terlaris & pre-order di beranda |
-| `auth.js` `search.js` `showroom.js` `categories.js` | header, pencarian, showroom, chip kategori |
-| `main.js` | booting semua modul |
-
-## Data tersimpan di browser
-
-| Key `localStorage` | Isi |
-|---|---|
+| Key | Isi |
+| --- | --- |
 | `otaku_cart_v1` | isi keranjang |
 | `otaku_wish_v1` | wishlist |
 | `otaku_promo_v1` | kode promo aktif |
-| `otaku_orders_v1` | pesanan hasil checkout |
+| `otaku_orders_v1` | riwayat pesanan contoh |
+| `otaku_intro_v1` | penanda intro sudah tampil (sessionStorage) |
+| `otaku_gacha_v1` | jumlah tarikan gacha terpakai (sessionStorage, maks 3) |
 
-Kode promo contoh: `OTAKU10` (diskon 10%), `GRATISKIRIM` (ongkir 0),
-`HOBI50K` (potong Rp50.000).
+## Cara jalanin lokal
 
-## Catatan gambar
+```bash
+python3 -m http.server 8080
+# buka http://localhost:8080
+```
 
-Semua gambar produk digambar oleh kode (gradasi + siluet SVG), bukan foto asli,
-supaya repo ringan dan bebas masalah hak cipta. Ganti dengan foto asli lewat
-field gambar di `assets/js/data.js` saat produk sungguhan sudah ada.
+Animasi butuh koneksi internet karena library-nya dari CDN. Tanpa internet,
+situs tetap terbuka tapi versi statis.
 
-## Langkah berikutnya (back-end)
+## Deploy (GitHub Pages)
 
-1. Ganti `data.js` dengan panggilan API produk.
-2. Pindahkan keranjang & pesanan dari `localStorage` ke database + sesi login.
-3. Sambungkan pembayaran (Midtrans/Xendit) di `checkout.js`.
-4. Buat panel admin untuk stok, harga, dan status pre-order.
+Settings -> Pages -> Source: `Deploy from a branch` -> Branch `main` / folder `/ (root)`.
+
+## Next step (back-end)
+
+- Autentikasi asli (`auth.js` sekarang cuma toggle `data-auth`).
+- Katalog & stok dari database, bukan `data.js`.
+- Pembayaran (VA / e-wallet / QRIS) + webhook status.
+- Ongkir real-time dan pelacakan resi.
+- Hadiah gacha + poin kolektor dicatat di server biar tidak bisa dicurangi.
