@@ -3,25 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Otakuben - Toko Action Figure, Gunpla &amp; Merch Hobi</title>
-<meta name="description" content="Toko figure & hobi: pre-order scale figure, gunpla, nendoroid, blind box, dan jasa titip beli dari Jepang.">
+<title>Otakuben - Rak Kaca Figure, Gunpla &amp; Titip Beli Jepang</title>
+<meta name="description" content="Otakuben: rak kaca digital buat kolektor. Scale figure, gunpla, nendoroid, blind box, pre-order resmi, dan titip beli dari Jepang.">
 <meta name="theme-color" content="#08172B">
 
 <!-- Open Graph / share preview -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="Otakuben — Figure &amp; Hobby Store">
-<meta property="og:description" content="Pre-order scale figure, gunpla, nendoroid, blind box, dan titip beli dari Jepang.">
+<meta property="og:title" content="Otakuben &mdash; Figure &amp; Hobby Store">
+<meta property="og:description" content="Kotak bento koleksi: figure, gunpla, chibi, blind box, dan titip beli dari Jepang.">
 <meta property="og:image" content="assets/img/logo-mark.svg">
 
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="site.webmanifest">
 
-<!-- CSS modular — urutan penting, responsive.css harus terakhir -->
+<!-- CSS milik sendiri - urutan penting, responsive.css harus terakhir -->
 <link rel="stylesheet" href="assets/css/base.css">
 <link rel="stylesheet" href="assets/css/header.css">
 <link rel="stylesheet" href="assets/css/components.css">
 <link rel="stylesheet" href="assets/css/sections.css">
 <link rel="stylesheet" href="assets/css/shop.css">
+<link rel="stylesheet" href="assets/css/home.css">
+
+<!-- CSS library animasi (AOS) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+
+<link rel="stylesheet" href="assets/css/motion.css">
 <link rel="stylesheet" href="assets/css/responsive.css">
 </head>
 
@@ -31,248 +37,452 @@
 <a class="skip-link" href="#main">Lompat ke konten utama</a>
 
 <!-- ==========================================================================
-     1. GLOBAL HEADER
+     INTRO "TUTUP KOTAK BENTO" - tampil sekali per sesi, digerakkan GSAP.
+     Kalau library gagal dimuat, blok ini tidak pernah muncul (CSS .libs-on).
      ========================================================================== -->
-<!-- Header disuntik oleh assets/js/layout.js (dua baris: bar utama + strip kategori) -->
+<div class="intro" data-intro data-aktif="false" aria-hidden="true">
+  <div class="intro-lid atas">
+    <div class="intro-teks">OTAKUBEN<small>membuka kotak koleksi</small></div>
+  </div>
+  <div class="intro-lid bawah">
+    <div class="intro-teks"><small>figure &middot; gunpla &middot; titip beli jepang</small></div>
+  </div>
+</div>
+
+<!-- ==========================================================================
+     1. GLOBAL HEADER (tetap sama seperti sebelumnya, disuntik layout.js)
+     ========================================================================== -->
 <div data-layout-header></div>
 
 <main id="main">
 
   <!-- ========================================================================
-       2A. HERO GRID
+       2. VAULT - hero "rak kaca" dengan panggung three.js
        ======================================================================== -->
-  <section class="hero shell" aria-label="Banner utama">
-    <h1 class="sr-only">Toko action figure, gunpla, dan merchandise hobi</h1>
+  <section class="vault" aria-labelledby="vault-judul">
+    <canvas class="vault-canvas" data-vault-canvas aria-hidden="true"></canvas>
+    <div class="vault-grid-lines" aria-hidden="true"></div>
+    <img class="vault-fallback" src="assets/img/deco-character.svg" alt="" aria-hidden="true">
 
-    <div class="hero-grid">
+    <div class="shell vault-inner">
+      <div class="vault-teks">
+        <span class="vault-kicker"><span class="titik" aria-hidden="true"></span>Rak Kaca Otakuben</span>
 
-      <!-- Banner besar kiri -->
-      <a class="card dark hero-card b-preorder" href="katalog.html?status=po">
-        <img class="deco" src="assets/img/deco-preorder.svg" alt="" aria-hidden="true">
-        <div class="body">
-          <span class="eyebrow">Pre-Order · Batch 04</span>
-          <h2>Premium Scale<br>Figure Series</h2>
-          <p>Skala 1/7 resmi, produksi terbatas. Kunci slot kamu dengan DP 30%.</p>
-          <div class="row">
-            <span class="btn btn-primary">Pre-Order Sekarang</span>
-            <span class="btn btn-ghost">Lihat Katalog</span>
+        <h1 class="vault-title" id="vault-judul" data-split>
+          Koleksimu dijaga seperti <em>barang museum</em>, bukan stok gudang.
+        </h1>
+
+        <p class="vault-sub" data-reveal="naik" data-reveal-delay="0.4">
+          Tiap barang dicek satu-satu, difoto ulang sebelum dikirim, dan dibungkus
+          dobel biar box-nya sampai tanpa penyok. Pre-order kami kabari tiap tahap,
+          termasuk kalau pabriknya molor.
+        </p>
+
+        <div class="vault-cta" data-reveal="naik" data-reveal-delay="0.55">
+          <a class="btn btn-primary magnet" href="katalog.html">Masuk ke Rak</a>
+          <a class="btn btn-glass magnet" href="#gacha">Tarik Kapsul Gacha</a>
+        </div>
+
+        <div class="vault-stats" data-stagger>
+          <div class="vault-stat"><b data-hitung="1482">0</b><span>item di rak</span></div>
+          <div class="vault-stat"><b data-hitung="24" data-hitung-akhir=" jam">0</b><span>packing keluar</span></div>
+          <div class="vault-stat"><b data-hitung="9" data-hitung-akhir=" hari">0</b><span>rata-rata titip beli</span></div>
+          <div class="vault-stat"><b data-hitung="4.9" data-hitung-desimal="1">0</b><span>rating kolektor</span></div>
+        </div>
+      </div>
+
+      <div class="vault-stage">
+        <span class="vault-tag">Kotak kaca ini <b>bisa diputar</b> &middot; geser kursormu</span>
+        <span class="vault-tag">Setiap kiriman dapat <b>foto kondisi</b> sebelum disegel</span>
+      </div>
+    </div>
+
+    <div class="vault-hint" aria-hidden="true"><span class="batang"></span>gulir</div>
+  </section>
+
+  <!-- ========================================================================
+       3. KOTAK BENTO KOLEKSI - tanda tangan visual Otakuben.
+          Tutupnya tergeser saat scroll (GSAP scrub), isinya kategori.
+       ======================================================================== -->
+  <section class="bento" id="kategori" data-bento aria-labelledby="bento-judul">
+    <div class="shell">
+      <div class="section-head" data-reveal="naik">
+        <div class="title">
+          <span class="accent" aria-hidden="true"></span>
+          <h2 id="bento-judul">Satu Kotak Bento, Semua Isi Hobimu</h2>
+          <p>Kami menata barang seperti kotak bekal: tiap sekat punya isi sendiri, nggak campur aduk.</p>
+        </div>
+        <a class="link-arrow link-gold" href="katalog.html">Buka semua sekat
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M12.5 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+
+      <div class="bento-wrap">
+        <!-- Tutup kotak: hanya tampil kalau library animasi aktif -->
+        <div class="tutup" data-tutup aria-hidden="true">
+          <div class="tutup-teks">
+            <b>KOTAK BENTO KOLEKSI</b>
+            <span>gulir untuk membuka tutupnya</span>
           </div>
         </div>
-      </a>
 
-      <!-- Banner tengah: member rewards -->
-      <a class="card hero-card b-rewards" href="masuk.html?mode=daftar">
-        <span class="coin" aria-hidden="true"></span>
-        <div class="body">
-          <span class="pill pill-ink">Member Rewards</span>
-          <h3>Gabung &amp; Kumpulkan Poin</h3>
-          <p>Setiap belanja Rp10.000 jadi 1 poin. Tukar jadi diskon &amp; akses PO prioritas.</p>
-          <div class="points"><b>1.250</b><span>poin / tahun</span></div>
-          <span class="btn btn-ink">Daftar Gratis</span>
+        <div class="bento-tray">
+          <a class="kotak besar" href="katalog.html?kategori=scale">
+            <img class="kotak-art" src="assets/img/showroom-01.svg" alt="" aria-hidden="true">
+            <span class="no" aria-hidden="true">SEKAT 01</span>
+            <span class="isi">
+              <h3>Scale Figure 1/7 &amp; 1/8</h3>
+              <p>Barang pajangan utama. Pengecatan tangan, base diorama, edisi bernomor.</p>
+              <span class="jum">143 item &middot; mulai Rp1,6 jt</span>
+            </span>
+          </a>
+
+          <a class="kotak k-a" href="katalog.html?kategori=chibi">
+            <img class="kotak-art" src="assets/img/showroom-03.svg" alt="" aria-hidden="true">
+            <span class="no" aria-hidden="true">SEKAT 02</span>
+            <span class="isi">
+              <h3>Nendoroid &amp; Chibi</h3>
+              <p>Muka lucu, part lepas-pasang, aman buat meja kerja.</p>
+              <span class="jum">198 item</span>
+            </span>
+          </a>
+
+          <a class="kotak k-b" href="katalog.html?kategori=blind-box">
+            <img class="kotak-art" src="assets/img/deco-gacha.svg" alt="" aria-hidden="true">
+            <span class="no" aria-hidden="true">SEKAT 03</span>
+            <span class="isi">
+              <h3>Blind Box</h3>
+              <p>Judi sehat versi kolektor. Rate isi kotak kami tulis terbuka.</p>
+              <span class="jum">117 item</span>
+            </span>
+          </a>
+
+          <a class="kotak tinggi" href="katalog.html?kategori=gunpla">
+            <img class="kotak-art" src="assets/img/showroom-02.svg" alt="" aria-hidden="true">
+            <span class="no" aria-hidden="true">SEKAT 04</span>
+            <span class="isi">
+              <h3>Plamo / Gunpla</h3>
+              <p>HG sampai MG, segel pabrik, plus tools dan cat buat yang suka rakit sendiri.</p>
+              <span class="jum">254 item &middot; HG mulai Rp245 rb</span>
+            </span>
+          </a>
         </div>
-      </a>
+      </div>
 
-      <!-- Banner kanan: character showcase -->
-      <a class="card dark hero-card b-character" href="katalog.html?kategori=scale">
-        <img class="deco" src="assets/img/deco-character.svg" alt="" aria-hidden="true">
-        <div class="body">
-          <span class="pill pill-cyan">Exclusive Drop</span>
-          <h3>Signature Character Collection</h3>
-          <span class="meta">12 item · edisi bernomor</span>
-          <span class="link-arrow link-gold">Jelajahi koleksi
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M12.5 6l6 6-6 6"/></svg>
+      <div class="sumpit" data-stagger>
+        <a href="katalog.html?kategori=action-figure">Action Figures</a>
+        <a href="katalog.html?kategori=kartu">Trading Card</a>
+        <a href="katalog.html?kategori=apparel">Apparel &amp; Merch</a>
+        <a href="katalog.html?kategori=tools">Tools &amp; Paint</a>
+        <a href="titip-beli.html">Titip Beli Jepang</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       4. RAK BERJALAN - scroll horizontal yang di-pin GSAP ScrollTrigger.
+          Isi tiap bay diambil dari data produk oleh js/home.js.
+       ======================================================================== -->
+  <section class="rak" data-rak aria-labelledby="rak-judul">
+    <div class="rak-head">
+      <h2 id="rak-judul">Jalan Pelan-Pelan di Depan Rak Kami</h2>
+      <p>Lima rak, lima suasana. Terus gulir, raknya yang jalan ke samping - persis kayak
+        keliling toko sungguhan tanpa harus rebutan lorong.</p>
+    </div>
+
+    <div class="rak-geser" aria-hidden="true">gulir untuk menyusuri rak</div>
+
+    <div class="rak-viewport" data-rak-viewport>
+      <!-- Diisi js/home.js -->
+      <div class="rak-track" data-rak-track></div>
+    </div>
+
+    <div class="rak-bar" aria-hidden="true"><i data-rak-bar></i></div>
+  </section>
+
+  <!-- ========================================================================
+       5. GACHA KAPSUL - kapsul three.js yang bisa diputar & dibuka,
+          confetti pakai canvas-confetti, animasi pecah pakai anime.js.
+       ======================================================================== -->
+  <section class="gacha" id="gacha" aria-labelledby="gacha-judul">
+    <div class="shell gacha-grid">
+      <div class="gacha-stage" data-gacha-stage>
+        <canvas class="gacha-canvas" data-gacha-canvas aria-hidden="true"></canvas>
+        <div class="gacha-fallback">
+          <img src="assets/img/deco-gacha.svg" alt="Ilustrasi kapsul gacha">
+        </div>
+        <span class="putar-info">seret kapsulnya buat diputar</span>
+      </div>
+
+      <div class="gacha-teks">
+        <span class="gacha-kicker">Pojok Kapsul</span>
+        <h2 id="gacha-judul">Tarik kapsul, dapat <em>kode potongan</em> beneran.</h2>
+        <p class="ket">Bukan gimmick kosong: tiap tarikan mengeluarkan satu barang dari rak kami
+          plus kode diskon yang langsung bisa dipakai di keranjang. Peluangnya kami tulis
+          apa adanya di bawah, nggak disembunyikan.</p>
+
+        <div class="gacha-aksi">
+          <button class="btn btn-primary magnet" type="button" data-gacha-tarik>Tarik Kapsul</button>
+          <button class="btn btn-glass" type="button" data-gacha-ulang hidden>Tutup Lagi</button>
+          <span class="pull-sisa" data-pull-sisa>Sisa tarikan sesi ini: 3 / 3</span>
+        </div>
+
+        <div class="rate" role="table" aria-label="Peluang tiap tingkat kapsul">
+          <div class="rate-baris" role="row">
+            <span role="cell">Umum</span>
+            <span class="bar" aria-hidden="true"><i data-rate-bar="60"></i></span>
+            <b role="cell">60%</b>
+          </div>
+          <div class="rate-baris" role="row">
+            <span role="cell">Langka</span>
+            <span class="bar" aria-hidden="true"><i data-rate-bar="27.5"></i></span>
+            <b role="cell">27,5%</b>
+          </div>
+          <div class="rate-baris" role="row">
+            <span role="cell">Epik</span>
+            <span class="bar" aria-hidden="true"><i data-rate-bar="10"></i></span>
+            <b role="cell">10%</b>
+          </div>
+          <div class="rate-baris" role="row">
+            <span role="cell">Legendaris</span>
+            <span class="bar" aria-hidden="true"><i data-rate-bar="2.5"></i></span>
+            <b role="cell">2,5%</b>
+          </div>
+        </div>
+
+        <!-- Hasil tarikan diisi js/home.js -->
+        <div class="gacha-hasil" data-gacha-hasil data-tampil="false" role="status" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       6. JALUR PRODUKSI - garis yang terisi saat scroll (GSAP scrub),
+          tiap stasiun muncul pakai AOS + anime.js.
+       ======================================================================== -->
+  <section class="jalur" data-jalur aria-labelledby="jalur-judul">
+    <div class="shell">
+      <div class="section-head" data-reveal="naik">
+        <div class="title">
+          <span class="accent" aria-hidden="true"></span>
+          <h2 id="jalur-judul">Perjalanan Satu Pre-Order</h2>
+          <p>Biar nggak deg-degan nunggu setahun tanpa kabar, ini rute yang dilewati barangmu.</p>
+        </div>
+        <a class="link-arrow link-cyan" href="bantuan.html#pengiriman">Detail pengiriman
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M12.5 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+
+      <div class="jalur-rel">
+        <span class="jalur-jalan" aria-hidden="true"><i data-jalur-isi></i></span>
+
+        <div class="stasiun" data-stasiun data-aos="fade-left">
+          <span class="titik" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10.5" width="16" height="10" rx="2"/><path d="M8 10.5V7.8a4 4 0 0 1 8 0v2.7M12 14.4v2.4"/></svg>
           </span>
-        </div>
-      </a>
-    </div>
-  </section>
-
-  <!-- ========================================================================
-       2B. BANNER SEKUNDER
-       ======================================================================== -->
-  <section class="secondary shell" aria-label="Promo dan pengalaman toko">
-    <div class="secondary-grid">
-
-      <!-- Showroom 360° -->
-      <div class="card dark secondary-card b-showroom">
-        <div class="body">
-          <h3><em>360°</em> Interactive Showroom</h3>
-          <p>Masuk ke toko fisik kami langsung dari layar — rak demi rak.</p>
-          <a class="btn btn-cyan" href="katalog.html">Buka Showroom Virtual</a>
+          <div class="kartu">
+            <span class="tahap">Tahap 01</span>
+            <h3>Slot dikunci pakai DP 30%</h3>
+            <p>Kuota pre-order dibatasi pabrik. Begitu kamu bayar DP, nomor slot dan tanggal
+              perkiraan rilis langsung tercatat di akunmu.</p>
+            <span class="durasi">hari ke-0</span>
+          </div>
         </div>
 
-        <!-- Viewer dikontrol js/showroom.js -->
-        <div class="showroom-viewer" data-showroom>
-          <button class="viewer-nav prev" type="button" aria-label="Sudut sebelumnya" data-showroom-prev>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 5.5l-6 6.5 6 6.5"/></svg>
-          </button>
-          <button class="viewer-nav next" type="button" aria-label="Sudut berikutnya" data-showroom-next>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 5.5l6 6.5-6 6.5"/></svg>
-          </button>
-          <img src="assets/img/showroom-01.svg" alt="Tampilan rak display toko" data-showroom-image>
-          <span class="showroom-label" data-showroom-label>Rak Utama</span>
+        <div class="stasiun" data-stasiun data-aos="fade-left" data-aos-delay="60">
+          <span class="titik" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V11l5 3V11l5 3V9l6 4v7z"/><path d="M4 20h16M7.5 7.5h.01"/></svg>
+          </span>
+          <div class="kartu">
+            <span class="tahap">Tahap 02</span>
+            <h3>Masuk antrean produksi</h3>
+            <p>Cetakan dibuat, dicat, lalu QC pabrik. Ini bagian paling lama dan paling sering
+              molor - kami kabari kalau jadwalnya berubah.</p>
+            <span class="durasi">2-6 bulan</span>
+          </div>
         </div>
-      </div>
 
-      <!-- Event sale -->
-      <a class="card dark secondary-card b-sale" href="katalog.html?diskon=1">
-        <img class="deco deco-fill" src="assets/img/pattern-stripes.svg" alt="" aria-hidden="true">
-        <div class="body">
-          <span class="pill pill-gold">Season Event</span>
-          <h3>Collector's Week<br>Sale</h3>
-          <span class="disc">Diskon hingga <b>45%</b> · 18 Sep – 2 Okt</span>
+        <div class="stasiun" data-stasiun data-aos="fade-left" data-aos-delay="120">
+          <span class="titik" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 4l9 5.5V20H3z"/><path d="M9 20v-6h6v6"/></svg>
+          </span>
+          <div class="kartu">
+            <span class="tahap">Tahap 03</span>
+            <h3>Mendarat di gudang Jepang</h3>
+            <p>Box dibuka, dicek penyok atau tidak, difoto, lalu dibungkus ulang pakai bubble
+              wrap dobel dan sudut pelindung.</p>
+            <span class="durasi">3-7 hari</span>
+          </div>
         </div>
-      </a>
 
-      <!-- Gacha / blind box -->
-      <a class="card dark secondary-card b-gacha" href="katalog.html?kategori=blind-box">
-        <img class="deco" src="assets/img/deco-gacha.svg" alt="" aria-hidden="true">
-        <div class="body">
-          <span class="pill pill-glass">Blind Box</span>
-          <h3>Gacha Pull Corner</h3>
-          <p>Tarik kartu, dapat figure acak — rare rate transparan.</p>
-          <span class="btn btn-ghost">Mulai Pull</span>
+        <div class="stasiun" data-stasiun data-aos="fade-left" data-aos-delay="180">
+          <span class="titik" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13.5l18-6-4.5 12-3.5-4-4 3 .5-4.5z"/></svg>
+          </span>
+          <div class="kartu">
+            <span class="tahap">Tahap 04</span>
+            <h3>Terbang ke Indonesia</h3>
+            <p>Kargo udara plus penanganan bea masuk. Nomor resi internasional dikirim ke
+              email dan halaman transaksimu.</p>
+            <span class="durasi">5-9 hari</span>
+          </div>
         </div>
-      </a>
-    </div>
-  </section>
 
-  <!-- ========================================================================
-       2C. KARTU KATEGORI + TITIP BELI
-       ======================================================================== -->
-  <section class="tiles shell" aria-label="Kategori unggulan dan titip beli">
-    <div class="tiles-grid">
-
-      <a class="card dark cat-banner b-cat-1" href="katalog.html?kategori=action-figure">
-        <img class="deco deco-fill" src="assets/img/pattern-grid.svg" alt="" aria-hidden="true">
-        <div class="body">
-          <span class="eyebrow">New Arrival</span>
-          <h3>Action Figures</h3>
-          <p>Articulated, scale, dan statue dari lini terbaru.</p>
+        <div class="stasiun" data-stasiun data-aos="fade-left" data-aos-delay="240">
+          <span class="titik" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V6h16v14z"/><path d="M4 11h16M4 15.5h16M9 6v14"/></svg>
+          </span>
+          <div class="kartu">
+            <span class="tahap">Tahap 05</span>
+            <h3>Naik rak kamu</h3>
+            <p>Sampai rumah dalam kondisi segel. Kalau ada penyok gara-gara pengiriman,
+              klaim dibuka 3x24 jam dengan bukti foto.</p>
+            <span class="durasi">1-3 hari</span>
+          </div>
         </div>
-        <div class="brand-tile"><span>Kategori</span><b>ACTION</b></div>
-      </a>
-
-      <a class="card dark cat-banner b-cat-2" href="katalog.html?kategori=gunpla">
-        <img class="deco deco-fill" src="assets/img/pattern-diagonal.svg" alt="" aria-hidden="true">
-        <div class="body">
-          <span class="eyebrow">Build Kit</span>
-          <h3>Plamo / Gunpla</h3>
-          <p>HG, RG, MG lengkap dengan tools &amp; paint.</p>
-        </div>
-        <div class="brand-tile"><span>Kategori</span><b>PLAMO</b></div>
-      </a>
-
-      <a class="card dark cat-banner b-cat-3" href="katalog.html?kategori=chibi">
-        <img class="deco deco-fill" src="assets/img/pattern-circles.svg" alt="" aria-hidden="true">
-        <div class="body">
-          <span class="eyebrow">Best Seller</span>
-          <h3>Nendoroid &amp; Chibi</h3>
-          <p>Sosok mini dengan part wajah yang bisa ditukar.</p>
-        </div>
-        <div class="brand-tile"><span>Kategori</span><b>CHIBI</b></div>
-      </a>
-
-      <!-- Kartu titip beli -->
-      <div class="card b-proxy">
-        <span class="eyebrow">Titip Beli</span>
-        <h3>Request Barang dari Jepang</h3>
-        <p>Semudah <a href="titip-beli.html">copy link</a> — kami bantu bid, beli, dan kirim ke Indonesia.</p>
-        <div class="proxy-sources">
-          <a class="source-chip" href="titip-beli.html"><span class="dot" aria-hidden="true"></span>Mercari</a>
-          <a class="source-chip" href="titip-beli.html"><span class="dot" aria-hidden="true"></span>Amazon JP</a>
-          <a class="source-chip" href="titip-beli.html"><span class="dot" aria-hidden="true"></span>Surugaya</a>
-          <a class="source-chip" href="titip-beli.html"><span class="dot" aria-hidden="true"></span>Animate</a>
-        </div>
-        <span class="proxy-more">dan banyak lagi…</span>
       </div>
     </div>
   </section>
 
   <!-- ========================================================================
-       3. EXPLORE BY CATEGORY
+       7. MEJA KERJA - titip beli Jepang + member rewards
        ======================================================================== -->
+  <section class="meja" aria-labelledby="meja-judul">
+    <div class="shell">
+      <h2 class="sr-only" id="meja-judul">Layanan titip beli dan program member</h2>
 
-<!-- ==========================================================================
-     PRODUK TERLARIS + PRE-ORDER — kartu dirender assets/js/beranda.js
-     ========================================================================== -->
-<section class="deret shell" aria-labelledby="terlaris-judul">
-  <div class="section-head">
-    <div class="title">
-      <span class="accent" aria-hidden="true"></span>
-      <h2 id="terlaris-judul">Paling Banyak Dibawa Pulang</h2>
-      <p>Barang yang paling sering masuk keranjang kolektor bulan ini.</p>
-    </div>
-    <a class="link-arrow link-cyan" href="katalog.html?sort=terlaris">Lihat semua terlaris
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M12.5 6l6 6-6 6"/></svg>
-    </a>
-  </div>
-  <div class="grid-produk" data-terlaris></div>
-</section>
+      <div class="meja-grid">
+        <article class="meja-kartu gelap" data-aos="fade-up">
+          <h3>Barangnya nggak ada di rak kami? Kami beliin dari Jepang.</h3>
+          <p>Kirim link Mercari, Amazon JP, Surugaya, sampai lelang Yahoo. Kami bayar,
+            timbang, gabung kiriman, lalu antar ke rumahmu. Estimasi biaya keluar
+            sebelum kamu setuju - nggak ada tagihan siluman.</p>
 
-<section class="deret shell" aria-labelledby="po-judul">
-  <div class="section-head">
-    <div class="title">
-      <span class="accent" aria-hidden="true"></span>
-      <h2 id="po-judul">Pre-Order Sedang Dibuka</h2>
-      <p>Kunci slot sekarang dengan DP 30% sebelum kuotanya tutup.</p>
-    </div>
-    <a class="link-arrow link-gold" href="katalog.html?status=po">Semua pre-order
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M12.5 6l6 6-6 6"/></svg>
-    </a>
-  </div>
-  <div class="grid-produk" data-baru></div>
-</section>
+          <div class="aksi">
+            <a class="btn btn-primary magnet" href="titip-beli.html">Hitung Estimasi Titip Beli</a>
+            <a class="btn btn-glass" href="bantuan.html">Cara kerjanya</a>
+          </div>
 
-  <section class="explore shell" aria-labelledby="explore-title">
-    <div class="section-head">
-      <div class="title">
-        <span class="accent" aria-hidden="true"></span>
-        <h2 id="explore-title">Explore By Category</h2>
-        <p>Telusuri koleksi berdasarkan tipe, skala, dan format rilis.</p>
+          <div class="sumber-marquee">
+            <div class="marquee">
+              <!-- Diisi js/home.js, digerakkan GSAP -->
+              <div class="marquee-track" data-sumber-track></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="meja-kartu" data-aos="fade-up" data-aos-delay="90">
+          <img class="koin" src="assets/img/pattern-circles.svg" alt="" aria-hidden="true" data-parallax="0.12">
+          <h3>Poin Kolektor</h3>
+          <p>Tiap belanja dapat poin, tiap poin bisa dipakai potong harga. Nggak ada
+            masa kedaluwarsa mendadak.</p>
+
+          <div class="poin-blok">
+            <span class="poin-besar" data-hitung="1250">0</span>
+            <span>poin rata-rata member baru</span>
+          </div>
+
+          <div class="tangga-poin">
+            <div><span>Kolektor Baru</span><b>0 poin</b></div>
+            <div><span>Kolektor Perak</span><b>1.000 poin</b></div>
+            <div><span>Kolektor Emas</span><b>2.000 poin</b></div>
+          </div>
+
+          <div class="aksi">
+            <a class="btn btn-ink magnet" href="masuk.html?mode=daftar">Daftar Gratis</a>
+          </div>
+        </article>
       </div>
-      <a class="link-arrow link-cyan" href="katalog.html">Lihat semua kategori
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M12.5 6l6 6-6 6"/></svg>
-      </a>
-    </div>
-
-    <!-- Chip aktif dikelola js/categories.js -->
-    <div class="chips" data-chips>
-      <a class="chip" href="katalog.html" aria-current="true">Semua <span class="count">1.482</span></a>
-      <a class="chip" href="katalog.html?kategori=action-figure">Action Figures <span class="count">386</span></a>
-      <a class="chip" href="katalog.html?kategori=gunpla">Plamo / Gunpla <span class="count">254</span></a>
-      <a class="chip" href="katalog.html?kategori=chibi">Nendoroid &amp; Chibi <span class="count">198</span></a>
-      <a class="chip" href="katalog.html?kategori=scale">Scale Figure 1/7 <span class="count">143</span></a>
-      <a class="chip" href="katalog.html?kategori=blind-box">Blind Box <span class="count">117</span></a>
-      <a class="chip" href="katalog.html?kategori=kartu">Trading Card <span class="count">96</span></a>
-      <a class="chip" href="katalog.html?kategori=apparel">Apparel &amp; Merch <span class="count">88</span></a>
-      <a class="chip" href="katalog.html?kategori=tools">Tools &amp; Paint <span class="count">64</span></a>
-      <a class="chip" href="katalog.html">Display Case <span class="count">36</span></a>
     </div>
   </section>
+
+  <!-- ========================================================================
+       8. SUARA KOLEKTOR - marquee dua baris (GSAP), isi dari js/home.js
+       ======================================================================== -->
+  <section class="suara" aria-labelledby="suara-judul">
+    <div class="shell">
+      <div class="section-head" data-reveal="naik">
+        <div class="title">
+          <span class="accent" aria-hidden="true"></span>
+          <h2 id="suara-judul">Suara Kolektor</h2>
+          <p>Ditulis apa adanya, termasuk yang nyindir fitur kapsul kami.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="suara-deret">
+      <div class="marquee"><div class="marquee-track" data-suara-baris></div></div>
+      <div class="marquee"><div class="marquee-track" data-suara-baris></div></div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       9. EXPLORE BY CATEGORY - chip aktif dikelola js/categories.js
+       ======================================================================== -->
+  <section class="jelajah" aria-labelledby="explore-title">
+    <div class="shell">
+      <div class="section-head" data-reveal="naik">
+        <div class="title">
+          <span class="accent" aria-hidden="true"></span>
+          <h2 id="explore-title">Explore By Category</h2>
+          <p>Telusuri koleksi berdasarkan tipe, skala, dan format rilis.</p>
+        </div>
+        <a class="link-arrow link-cyan" href="katalog.html">Lihat semua kategori
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M12.5 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+
+      <div class="chips" data-chips data-stagger>
+        <a class="chip" href="katalog.html" aria-current="true">Semua <span class="count">1.482</span></a>
+        <a class="chip" href="katalog.html?kategori=action-figure">Action Figures <span class="count">386</span></a>
+        <a class="chip" href="katalog.html?kategori=gunpla">Plamo / Gunpla <span class="count">254</span></a>
+        <a class="chip" href="katalog.html?kategori=chibi">Nendoroid &amp; Chibi <span class="count">198</span></a>
+        <a class="chip" href="katalog.html?kategori=scale">Scale Figure 1/7 <span class="count">143</span></a>
+        <a class="chip" href="katalog.html?kategori=blind-box">Blind Box <span class="count">117</span></a>
+        <a class="chip" href="katalog.html?kategori=kartu">Trading Card <span class="count">96</span></a>
+        <a class="chip" href="katalog.html?kategori=apparel">Apparel &amp; Merch <span class="count">88</span></a>
+        <a class="chip" href="katalog.html?kategori=tools">Tools &amp; Paint <span class="count">64</span></a>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <!-- ==========================================================================
-     FOOTER
+     10. FOOTER (tetap sama seperti sebelumnya, disuntik layout.js)
      ========================================================================== -->
-<!-- Footer disuntik oleh assets/js/layout.js -->
 <div data-layout-footer></div>
 
 <!-- Toast notifikasi (diisi js/main.js) -->
 <div class="toast" data-toast data-open="false" role="status" aria-live="polite"></div>
 
 <!-- ==========================================================================
-     JAVASCRIPT modular — main.js dimuat terakhir karena memanggil modul lain
+     LIBRARY ANIMASI (CDN) - dimuat sebelum skrip sendiri.
+     Semua pakai defer, jadi urutannya tetap terjaga.
+     Kalau salah satu gagal dimuat, situs tetap jalan tanpa animasinya.
+     ========================================================================== -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/bundled/lenis.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/split-type@0.3.4/umd/index.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js" defer></script>
+
+<!-- ==========================================================================
+     JAVASCRIPT modular - main.js dimuat terakhir karena memanggil modul lain
      ========================================================================== -->
 <script src="assets/js/data.js" defer></script>
 <script src="assets/js/ui.js" defer></script>
 <script src="assets/js/cart.js" defer></script>
 <script src="assets/js/layout.js" defer></script>
-<script src="assets/js/beranda.js" defer></script>
 <script src="assets/js/auth.js" defer></script>
 <script src="assets/js/search.js" defer></script>
-<script src="assets/js/showroom.js" defer></script>
 <script src="assets/js/categories.js" defer></script>
+<script src="assets/js/motion.js" defer></script>
+<script src="assets/js/home3d.js" defer></script>
+<script src="assets/js/home.js" defer></script>
 <script src="assets/js/main.js" defer></script>
 </body>
 </html>
