@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Akun Saya &mdash; Otakuben</title>
+<meta name="description" content="Kelola profil, pantau pesanan berjalan, lihat riwayat pembelian, poin reward, dan wishlist.">
+<meta name="theme-color" content="#08172B">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="site.webmanifest">
+
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/header.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/sections.css">
+<link rel="stylesheet" href="assets/css/shop.css">
+<link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+
+<body data-page="akun" data-auth="out">
+
+<a class="skip-link" href="#main">Lompat ke konten utama</a>
+
+<div data-layout-header></div>
+
+<main id="main" class="page">
+  <div class="shell">
+
+    <nav class="crumb" aria-label="Jalur navigasi">
+      <a href="index.html">Beranda</a>
+      <span class="sep" aria-hidden="true">/</span>
+      <span aria-current="page">Akun Saya</span>
+    </nav>
+
+    <div class="page-head">
+      <h1>Akun Saya</h1>
+      <p>Pusat kendali: pesanan berjalan, riwayat, poin reward, dan wishlist.</p>
+    </div>
+
+    <div class="akun-layout">
+      <!-- Navigasi panel — dirender assets/js/account.js -->
+      <aside class="akun-nav" aria-label="Menu akun" data-akun-nav></aside>
+
+      <!-- Isi panel aktif -->
+      <div data-akun-isi></div>
+    </div>
+  </div>
+</main>
+
+<div data-layout-footer></div>
+
+<div class="toast" data-toast data-open="false" role="status" aria-live="polite"></div>
+
+<script src="assets/js/data.js" defer></script>
+<script src="assets/js/ui.js" defer></script>
+<script src="assets/js/cart.js" defer></script>
+<script src="assets/js/layout.js" defer></script>
+<script src="assets/js/auth.js" defer></script>
+<script src="assets/js/search.js" defer></script>
+<script src="assets/js/account.js" defer></script>
+<script src="assets/js/main.js" defer></script>
+</body>
+</html>

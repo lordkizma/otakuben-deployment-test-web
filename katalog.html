@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Katalog Produk &mdash; Otakuben</title>
+<meta name="description" content="Katalog lengkap action figure, gunpla, nendoroid, blind box, trading card, apparel, dan tools. Filter berdasarkan kategori, harga, dan ketersediaan.">
+<meta name="theme-color" content="#08172B">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="site.webmanifest">
+
+<!-- CSS modular — urutan penting, responsive.css harus terakhir -->
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/header.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/sections.css">
+<link rel="stylesheet" href="assets/css/shop.css">
+<link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+
+<body data-page="katalog" data-auth="out">
+
+<a class="skip-link" href="#main">Lompat ke konten utama</a>
+
+<!-- Header disuntik oleh assets/js/layout.js -->
+<div data-layout-header></div>
+
+<main id="main" class="page">
+  <div class="shell">
+
+    <nav class="crumb" aria-label="Jalur navigasi">
+      <a href="index.html">Beranda</a>
+      <span class="sep" aria-hidden="true">/</span>
+      <span aria-current="page">Katalog</span>
+    </nav>
+
+    <div class="page-head">
+      <h1>Katalog Produk</h1>
+      <p>Semua koleksi dalam satu halaman. Saring berdasarkan kategori, brand,
+         rentang harga, atau status pre-order.</p>
+    </div>
+
+    <div class="katalog-layout">
+
+      <!-- Tombol filter (hanya tampil di layar kecil) -->
+      <button class="btn btn-ink filter-toggle" type="button"
+              aria-expanded="false" aria-controls="filter" data-filter-toggle>
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor"
+             stroke-width="1.9" stroke-linecap="round" aria-hidden="true">
+          <path d="M4 7h16M7 12h10M10 17h4"/>
+        </svg>
+        Filter &amp; Urutkan
+      </button>
+
+      <!-- Panel filter — isinya dirender oleh assets/js/catalog.js -->
+      <aside class="filter-panel" id="filter" aria-label="Filter produk" data-filter-panel></aside>
+
+      <div>
+        <div class="hasil-bar">
+          <p class="hasil-jumlah" data-hasil-jumlah aria-live="polite"></p>
+
+          <div class="sortir">
+            <label for="sortir">Urutkan</label>
+            <select class="select" id="sortir" data-sortir>
+              <option value="relevan">Paling relevan</option>
+              <option value="terlaris">Terlaris</option>
+              <option value="murah">Harga terendah</option>
+              <option value="mahal">Harga tertinggi</option>
+              <option value="rating">Rating tertinggi</option>
+              <option value="diskon">Diskon terbesar</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Chip filter yang sedang aktif -->
+        <div class="filter-aktif" data-filter-aktif></div>
+
+        <!-- Hasil produk -->
+        <div class="grid-produk" data-hasil></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Footer disuntik oleh assets/js/layout.js -->
+<div data-layout-footer></div>
+
+<div class="toast" data-toast data-open="false" role="status" aria-live="polite"></div>
+
+<!-- JAVASCRIPT — main.js dimuat terakhir karena memanggil modul lain -->
+<script src="assets/js/data.js" defer></script>
+<script src="assets/js/ui.js" defer></script>
+<script src="assets/js/cart.js" defer></script>
+<script src="assets/js/layout.js" defer></script>
+<script src="assets/js/auth.js" defer></script>
+<script src="assets/js/search.js" defer></script>
+<script src="assets/js/catalog.js" defer></script>
+<script src="assets/js/main.js" defer></script>
+</body>
+</html>

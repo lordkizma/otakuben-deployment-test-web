@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Checkout &mdash; Otakuben</title>
+<meta name="description" content="Isi data penerima, pilih metode pengiriman dan pembayaran, lalu buat pesanan.">
+<meta name="theme-color" content="#08172B">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="site.webmanifest">
+
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/header.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/sections.css">
+<link rel="stylesheet" href="assets/css/shop.css">
+<link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+
+<body data-page="checkout" data-auth="out">
+
+<a class="skip-link" href="#main">Lompat ke konten utama</a>
+
+<div data-layout-header></div>
+
+<main id="main" class="page">
+  <div class="shell">
+
+    <nav class="crumb" aria-label="Jalur navigasi">
+      <a href="index.html">Beranda</a>
+      <span class="sep" aria-hidden="true">/</span>
+      <a href="keranjang.html">Keranjang</a>
+      <span class="sep" aria-hidden="true">/</span>
+      <span aria-current="page">Checkout</span>
+    </nav>
+
+    <div class="page-head">
+      <h1>Checkout</h1>
+      <p>Belum ada pembayaran yang diproses di tahap ini &mdash; sistem pembayaran
+         menyusul saat backend aktif.</p>
+    </div>
+
+    <!-- Indikator langkah -->
+    <div class="langkah" aria-label="Langkah checkout">
+      <span class="item selesai"><span class="no">1</span>Keranjang</span>
+      <span class="garis" aria-hidden="true"></span>
+      <span class="item aktif"><span class="no">2</span>Data &amp; Pengiriman</span>
+      <span class="garis" aria-hidden="true"></span>
+      <span class="item"><span class="no">3</span>Pembayaran</span>
+    </div>
+
+    <!-- Isi dirender assets/js/checkout.js -->
+    <div data-checkout-wrap>
+      <div class="belanja-layout">
+        <div data-checkout-form></div>
+        <div data-checkout-ringkasan></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div data-layout-footer></div>
+
+<div class="toast" data-toast data-open="false" role="status" aria-live="polite"></div>
+
+<script src="assets/js/data.js" defer></script>
+<script src="assets/js/ui.js" defer></script>
+<script src="assets/js/cart.js" defer></script>
+<script src="assets/js/layout.js" defer></script>
+<script src="assets/js/auth.js" defer></script>
+<script src="assets/js/search.js" defer></script>
+<script src="assets/js/keranjang.js" defer></script>
+<script src="assets/js/checkout.js" defer></script>
+<script src="assets/js/main.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Keranjang Belanja &mdash; Otakuben</title>
+<meta name="description" content="Keranjang belanja: atur jumlah barang, pakai kode promo, dan lihat ringkasan biaya sebelum checkout.">
+<meta name="theme-color" content="#08172B">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="site.webmanifest">
+
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/header.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/sections.css">
+<link rel="stylesheet" href="assets/css/shop.css">
+<link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+
+<body data-page="keranjang" data-auth="out">
+
+<a class="skip-link" href="#main">Lompat ke konten utama</a>
+
+<div data-layout-header></div>
+
+<main id="main" class="page">
+  <div class="shell">
+
+    <nav class="crumb" aria-label="Jalur navigasi">
+      <a href="index.html">Beranda</a>
+      <span class="sep" aria-hidden="true">/</span>
+      <span aria-current="page">Keranjang</span>
+    </nav>
+
+    <div class="page-head">
+      <h1>Keranjang Belanja</h1>
+      <p>Cek dulu barangnya sebelum lanjut. Isi keranjang tersimpan di browser kamu,
+         jadi nggak hilang walau tab ditutup.</p>
+    </div>
+
+    <div class="belanja-layout">
+      <!-- Daftar barang — dirender assets/js/keranjang.js -->
+      <div data-keranjang-isi></div>
+
+      <!-- Ringkasan biaya -->
+      <div data-keranjang-ringkasan></div>
+    </div>
+  </div>
+</main>
+
+<div data-layout-footer></div>
+
+<div class="toast" data-toast data-open="false" role="status" aria-live="polite"></div>
+
+<script src="assets/js/data.js" defer></script>
+<script src="assets/js/ui.js" defer></script>
+<script src="assets/js/cart.js" defer></script>
+<script src="assets/js/layout.js" defer></script>
+<script src="assets/js/auth.js" defer></script>
+<script src="assets/js/search.js" defer></script>
+<script src="assets/js/keranjang.js" defer></script>
+<script src="assets/js/main.js" defer></script>
+</body>
+</html>
