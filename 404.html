@@ -18,6 +18,9 @@
   .nf p{margin-top:10px;font-size:15px;color:#C3CEDA;max-width:46ch;}
   .nf .row{margin-top:26px;display:flex;flex-wrap:wrap;gap:12px;justify-content:center;}
 </style>
+<!-- CSS library animasi (AOS) + lapisan animasi sendiri -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+<link rel="stylesheet" href="assets/css/motion.css">
 </head>
 <body>
   <main class="nf">
@@ -31,5 +34,15 @@
       </div>
     </div>
   </main>
+<!-- LIBRARY ANIMASI (CDN) - dimuat sebelum skrip sendiri, semua pakai defer -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/bundled/lenis.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/split-type@0.3.4/umd/index.min.js" defer></script>
+
+<script src="assets/js/motion.js" defer></script>
+<script src="assets/js/main.js" defer></script>
 </body>
 </html>
