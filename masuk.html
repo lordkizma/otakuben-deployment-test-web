@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Masuk / Daftar &mdash; Otakuben</title>
+<meta name="description" content="Masuk ke akun kamu atau daftar gratis untuk mengumpulkan poin, mengikuti pre-order prioritas, dan menyimpan wishlist.">
+<meta name="theme-color" content="#08172B">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="site.webmanifest">
+
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/header.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/sections.css">
+<link rel="stylesheet" href="assets/css/shop.css">
+<link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+
+<body data-page="masuk" data-auth="out">
+
+<a class="skip-link" href="#main">Lompat ke konten utama</a>
+
+<div data-layout-header></div>
+
+<main id="main" class="page">
+  <div class="shell">
+    <div class="auth-wrap">
+
+      <div class="page-head" style="text-align:center">
+        <h1>Masuk ke Akun</h1>
+        <p style="margin-inline:auto">Simpan wishlist, pantau pre-order, dan kumpulkan poin
+           setiap kali belanja.</p>
+      </div>
+
+      <!-- Tab pilihan -->
+      <div class="tabs" role="tablist" aria-label="Masuk atau daftar">
+        <button class="tab" type="button" role="tab" aria-selected="true"
+                aria-controls="panel-masuk" data-tab="masuk">Masuk</button>
+        <button class="tab" type="button" role="tab" aria-selected="false"
+                aria-controls="panel-daftar" data-tab="daftar">Daftar</button>
+      </div>
+
+      <!-- ============================ PANEL MASUK ============================ -->
+      <section class="panel" id="panel-masuk" role="tabpanel" data-panel="masuk">
+        <form data-form-masuk novalidate>
+          <div class="field">
+            <label for="m-email">Email</label>
+            <input class="input" id="m-email" name="email" type="email"
+                   autocomplete="email" placeholder="nama@email.com">
+          </div>
+
+          <div class="field" style="margin-top:16px">
+            <label for="m-sandi">Kata sandi</label>
+            <input class="input" id="m-sandi" name="sandi" type="password"
+                   autocomplete="current-password" placeholder="Minimal 6 karakter">
+          </div>
+
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px;flex-wrap:wrap">
+            <label class="pilihan" style="min-height:auto">
+              <input type="checkbox" name="ingat" checked>
+              <span>Ingat saya</span>
+            </label>
+            <a href="bantuan.html#akun" style="font-size:13px;color:var(--cyan-deep);font-weight:600">
+              Lupa kata sandi?
+            </a>
+          </div>
+
+          <button class="btn btn-primary" type="submit"
+                  style="width:100%;min-height:48px;margin-top:20px">Masuk</button>
+        </form>
+
+        <div class="pemisah">atau</div>
+
+        <button class="tombol-sosial" type="button" data-sosial>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="8.5"/><path d="M12 8v8M8 12h8"/>
+          </svg>
+          Masuk dengan akun lain
+        </button>
+
+        <p style="margin-top:18px;text-align:center;font-size:13.5px;color:var(--ink-soft)">
+          Belum punya akun?
+          <a href="#" data-pindah-tab="daftar"
+             style="color:var(--cyan-deep);font-weight:650">Daftar gratis</a>
+        </p>
+      </section>
+
+      <!-- ============================ PANEL DAFTAR =========================== -->
+      <section class="panel" id="panel-daftar" role="tabpanel" data-panel="daftar" hidden>
+        <form data-form-daftar novalidate>
+          <div class="field">
+            <label for="d-nama">Nama lengkap</label>
+            <input class="input" id="d-nama" name="nama" type="text"
+                   autocomplete="name" placeholder="Nama kamu">
+          </div>
+
+          <div class="field" style="margin-top:16px">
+            <label for="d-email">Email</label>
+            <input class="input" id="d-email" name="email" type="email"
+                   autocomplete="email" placeholder="nama@email.com">
+          </div>
+
+          <div class="field" style="margin-top:16px">
+            <label for="d-sandi">Kata sandi</label>
+            <input class="input" id="d-sandi" name="sandi" type="password"
+                   autocomplete="new-password" placeholder="Minimal 6 karakter">
+            <span class="bantu">Pakai kombinasi huruf dan angka biar aman.</span>
+          </div>
+
+          <div class="field" style="margin-top:16px">
+            <label for="d-ulang">Ulangi kata sandi</label>
+            <input class="input" id="d-ulang" name="ulang" type="password"
+                   autocomplete="new-password" placeholder="Ketik ulang kata sandi">
+          </div>
+
+          <label class="pilihan" style="margin-top:16px">
+            <input type="checkbox" name="setuju">
+            <span>Saya setuju dengan syarat &amp; ketentuan dan kebijakan privasi.</span>
+          </label>
+
+          <button class="btn btn-primary" type="submit"
+                  style="width:100%;min-height:48px;margin-top:20px">Buat Akun</button>
+        </form>
+
+        <p style="margin-top:18px;text-align:center;font-size:13.5px;color:var(--ink-soft)">
+          Sudah punya akun?
+          <a href="#" data-pindah-tab="masuk"
+             style="color:var(--cyan-deep);font-weight:650">Masuk di sini</a>
+        </p>
+      </section>
+
+      <p style="margin-top:20px;text-align:center;font-size:12px;color:var(--slate-400)">
+        Catatan: login masih simulasi front-end. Tidak ada data yang dikirim ke server.
+      </p>
+    </div>
+  </div>
+</main>
+
+<div data-layout-footer></div>
+
+<div class="toast" data-toast data-open="false" role="status" aria-live="polite"></div>
+
+<script src="assets/js/data.js" defer></script>
+<script src="assets/js/ui.js" defer></script>
+<script src="assets/js/cart.js" defer></script>
+<script src="assets/js/layout.js" defer></script>
+<script src="assets/js/auth.js" defer></script>
+<script src="assets/js/search.js" defer></script>
+<script src="assets/js/masuk.js" defer></script>
+<script src="assets/js/main.js" defer></script>
+</body>
+</html>
