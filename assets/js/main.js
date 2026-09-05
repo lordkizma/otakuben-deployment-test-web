@@ -1,7 +1,18 @@
 /* ==========================================================================
    MAIN.JS — titik masuk aplikasi.
-   Memuat semua modul (auth, search, showroom, categories) + utilitas kecil.
-   File ini dimuat PALING AKHIR di index.html.
+
+   File ini dimuat PALING AKHIR di setiap halaman, karena tugasnya
+   menyalakan semua modul yang sudah dimuat sebelumnya.
+
+   Urutan penting:
+     1. layout  → menyuntik header & footer dulu, supaya modul lain
+                  (auth, search, cart) bisa menemukan elemennya
+     2. tahun   → isi <span data-year> di footer yang baru disuntik
+     3. modul global (ui, cart, auth, search)
+     4. modul per halaman (showroom, categories, catalog, product, dst)
+
+   Semua pemanggilan dijaga dengan if (App.x), jadi halaman yang tidak
+   memuat modul tertentu tetap aman.
    ========================================================================== */
 
 window.App = window.App || {};
@@ -42,12 +53,29 @@ window.App = window.App || {};
   function boot() {
     document.documentElement.classList.add("js");
 
+    /* 1. Kerangka halaman (header + footer) */
+    if (App.layout) App.layout.init();
+
+    /* 2. Isi tahun setelah footer ada */
     setYear();
 
+    /* 3. Modul global */
+    if (App.ui) App.ui.init();
+    if (App.cart) App.cart.init();
     if (App.auth) App.auth.init();
     if (App.search) App.search.init();
+
+    /* 4. Modul per halaman */
     if (App.showroom) App.showroom.init();
     if (App.categories) App.categories.init();
+    if (App.beranda) App.beranda.init();
+    if (App.catalog) App.catalog.init();
+    if (App.product) App.product.init();
+    if (App.keranjang) App.keranjang.init();
+    if (App.checkout) App.checkout.init();
+    if (App.account) App.account.init();
+    if (App.titipbeli) App.titipbeli.init();
+    if (App.masuk) App.masuk.init();
   }
 
   if (document.readyState === "loading") {
