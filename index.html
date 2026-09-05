@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>[Your Site Logo] — Toko Action Figure, Gunpla &amp; Merch Hobi</title>
+<title>Otakuben - Toko Action Figure, Gunpla &amp; Merch Hobi</title>
 <meta name="description" content="Toko figure & hobi: pre-order scale figure, gunpla, nendoroid, blind box, dan jasa titip beli dari Jepang.">
 <meta name="theme-color" content="#08172B">
 
 <!-- Open Graph / share preview -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="[Your Site Logo] — Figure &amp; Hobby Store">
+<meta property="og:title" content="Otakuben — Figure &amp; Hobby Store">
 <meta property="og:description" content="Pre-order scale figure, gunpla, nendoroid, blind box, dan titip beli dari Jepang.">
 <meta property="og:image" content="assets/img/logo-mark.svg">
 
@@ -21,113 +21,20 @@
 <link rel="stylesheet" href="assets/css/header.css">
 <link rel="stylesheet" href="assets/css/components.css">
 <link rel="stylesheet" href="assets/css/sections.css">
+<link rel="stylesheet" href="assets/css/shop.css">
 <link rel="stylesheet" href="assets/css/responsive.css">
 </head>
 
 <!-- data-auth="out" = belum login (default). js/auth.js bisa ubah ke "in". -->
-<body data-auth="out">
+<body data-page="beranda" data-auth="out">
 
 <a class="skip-link" href="#main">Lompat ke konten utama</a>
 
 <!-- ==========================================================================
      1. GLOBAL HEADER
      ========================================================================== -->
-<header class="site-header">
-  <div class="shell header-inner">
-
-    <!-- Logo -->
-    <a class="logo" href="index.html" aria-label="[Your Site Logo] — beranda">
-      <img class="logo-mark" src="assets/img/logo-mark.svg" alt="" width="38" height="38">
-      <span class="logo-text">
-        <b>[Your Site Logo]</b>
-        <span>Figure &amp; Hobby</span>
-      </span>
-    </a>
-
-    <!-- Search bar -->
-    <form class="search" role="search" action="#" data-search-form>
-      <label class="sr-only" for="q">Cari produk</label>
-      <div class="search-field">
-        <input id="q" name="q" type="search" autocomplete="off"
-               placeholder="Cari Action Figure, Merch, Gunpla..." data-search-input>
-        <span class="kbd" aria-hidden="true">Ctrl K</span>
-        <button class="search-submit" type="submit" aria-label="Cari">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
-            <circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/>
-          </svg>
-        </button>
-      </div>
-    </form>
-
-    <!-- Action icon -->
-    <nav class="actions" aria-label="Aksi cepat">
-
-      <!-- 1. Filter / pencarian lanjutan -->
-      <a class="icon-btn" href="#" aria-label="Filter dan pencarian lanjutan">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true">
-          <path d="M4 7h16M7 12h10M10 17h4"/>
-        </svg>
-        <span class="tip">Filter &amp; Pencarian Lanjutan</span>
-      </a>
-
-      <!-- 2. Keranjang — default kosong, TANPA badge angka -->
-      <a class="icon-btn" href="#" aria-label="Keranjang, kosong" data-cart>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M3 4h2.2l2.4 10.6a1.6 1.6 0 0 0 1.6 1.25h8.5a1.6 1.6 0 0 0 1.56-1.2L21 8H6"/>
-          <circle cx="10" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/>
-        </svg>
-        <span class="tip">Keranjang (kosong)</span>
-      </a>
-
-      <!-- 3. Transaksi berjalan -->
-      <a class="icon-btn" href="#" aria-label="Transaksi berjalan">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M3.5 8.5h13M13.5 5.5l3 3-3 3"/><path d="M20.5 15.5h-13M10.5 12.5l-3 3 3 3"/>
-        </svg>
-        <span class="tip">Transaksi Berjalan</span>
-      </a>
-
-      <!-- 4. Riwayat pembelian -->
-      <a class="icon-btn" href="#" aria-label="Riwayat pembelian">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M3.6 12a8.4 8.4 0 1 0 2.6-6.1M3.4 4.6v4.2h4.2"/><path d="M12 8.2V12l3 1.8"/>
-        </svg>
-        <span class="tip">Riwayat Pembelian</span>
-      </a>
-
-      <span class="header-divider" aria-hidden="true"></span>
-
-      <!-- Area autentikasi -->
-      <div class="auth">
-        <!-- State default: belum login -->
-        <a class="btn-auth" href="#" data-login-trigger>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="12" cy="8.2" r="3.6"/><path d="M4.8 20c.9-3.6 3.8-5.6 7.2-5.6s6.3 2 7.2 5.6"/>
-          </svg>
-          Masuk / Daftar
-        </a>
-
-        <!-- State sudah login: aktifkan via App.auth.login('Nama') -->
-        <button class="auth-user" type="button" aria-haspopup="true" aria-expanded="false" data-auth-toggle>
-          <span class="avatar" aria-hidden="true" data-auth-initial>N</span>
-          <span class="greet">Halo, <b data-auth-name>Nama User</b></span>
-          <svg class="caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M6 9.5l6 6 6-6"/>
-          </svg>
-        </button>
-
-        <div class="auth-menu" data-auth-menu data-open="false" role="menu">
-          <a href="#" role="menuitem">Profil Saya</a>
-          <a href="#" role="menuitem">Pesanan Saya</a>
-          <a href="#" role="menuitem">Poin &amp; Reward</a>
-          <a href="#" role="menuitem">Wishlist</a>
-          <hr>
-          <a class="danger" href="#" role="menuitem" data-logout>Keluar</a>
-        </div>
-      </div>
-    </nav>
-  </div>
-</header>
+<!-- Header disuntik oleh assets/js/layout.js (dua baris: bar utama + strip kategori) -->
+<div data-layout-header></div>
 
 <main id="main">
 
@@ -140,7 +47,7 @@
     <div class="hero-grid">
 
       <!-- Banner besar kiri -->
-      <a class="card dark hero-card b-preorder" href="#">
+      <a class="card dark hero-card b-preorder" href="katalog.html?status=po">
         <img class="deco" src="assets/img/deco-preorder.svg" alt="" aria-hidden="true">
         <div class="body">
           <span class="eyebrow">Pre-Order · Batch 04</span>
@@ -154,7 +61,7 @@
       </a>
 
       <!-- Banner tengah: member rewards -->
-      <a class="card hero-card b-rewards" href="#">
+      <a class="card hero-card b-rewards" href="masuk.html?mode=daftar">
         <span class="coin" aria-hidden="true"></span>
         <div class="body">
           <span class="pill pill-ink">Member Rewards</span>
@@ -166,7 +73,7 @@
       </a>
 
       <!-- Banner kanan: character showcase -->
-      <a class="card dark hero-card b-character" href="#">
+      <a class="card dark hero-card b-character" href="katalog.html?kategori=scale">
         <img class="deco" src="assets/img/deco-character.svg" alt="" aria-hidden="true">
         <div class="body">
           <span class="pill pill-cyan">Exclusive Drop</span>
@@ -191,7 +98,7 @@
         <div class="body">
           <h3><em>360°</em> Interactive Showroom</h3>
           <p>Masuk ke toko fisik kami langsung dari layar — rak demi rak.</p>
-          <a class="btn btn-cyan" href="#">Buka Showroom Virtual</a>
+          <a class="btn btn-cyan" href="katalog.html">Buka Showroom Virtual</a>
         </div>
 
         <!-- Viewer dikontrol js/showroom.js -->
@@ -208,7 +115,7 @@
       </div>
 
       <!-- Event sale -->
-      <a class="card dark secondary-card b-sale" href="#">
+      <a class="card dark secondary-card b-sale" href="katalog.html?diskon=1">
         <img class="deco deco-fill" src="assets/img/pattern-stripes.svg" alt="" aria-hidden="true">
         <div class="body">
           <span class="pill pill-gold">Season Event</span>
@@ -218,7 +125,7 @@
       </a>
 
       <!-- Gacha / blind box -->
-      <a class="card dark secondary-card b-gacha" href="#">
+      <a class="card dark secondary-card b-gacha" href="katalog.html?kategori=blind-box">
         <img class="deco" src="assets/img/deco-gacha.svg" alt="" aria-hidden="true">
         <div class="body">
           <span class="pill pill-glass">Blind Box</span>
@@ -236,7 +143,7 @@
   <section class="tiles shell" aria-label="Kategori unggulan dan titip beli">
     <div class="tiles-grid">
 
-      <a class="card dark cat-banner b-cat-1" href="#">
+      <a class="card dark cat-banner b-cat-1" href="katalog.html?kategori=action-figure">
         <img class="deco deco-fill" src="assets/img/pattern-grid.svg" alt="" aria-hidden="true">
         <div class="body">
           <span class="eyebrow">New Arrival</span>
@@ -246,7 +153,7 @@
         <div class="brand-tile"><span>Kategori</span><b>ACTION</b></div>
       </a>
 
-      <a class="card dark cat-banner b-cat-2" href="#">
+      <a class="card dark cat-banner b-cat-2" href="katalog.html?kategori=gunpla">
         <img class="deco deco-fill" src="assets/img/pattern-diagonal.svg" alt="" aria-hidden="true">
         <div class="body">
           <span class="eyebrow">Build Kit</span>
@@ -256,7 +163,7 @@
         <div class="brand-tile"><span>Kategori</span><b>PLAMO</b></div>
       </a>
 
-      <a class="card dark cat-banner b-cat-3" href="#">
+      <a class="card dark cat-banner b-cat-3" href="katalog.html?kategori=chibi">
         <img class="deco deco-fill" src="assets/img/pattern-circles.svg" alt="" aria-hidden="true">
         <div class="body">
           <span class="eyebrow">Best Seller</span>
@@ -270,12 +177,12 @@
       <div class="card b-proxy">
         <span class="eyebrow">Titip Beli</span>
         <h3>Request Barang dari Jepang</h3>
-        <p>Semudah <a href="#">copy link</a> — kami bantu bid, beli, dan kirim ke Indonesia.</p>
+        <p>Semudah <a href="titip-beli.html">copy link</a> — kami bantu bid, beli, dan kirim ke Indonesia.</p>
         <div class="proxy-sources">
-          <a class="source-chip" href="#"><span class="dot" aria-hidden="true"></span>Mercari</a>
-          <a class="source-chip" href="#"><span class="dot" aria-hidden="true"></span>Amazon JP</a>
-          <a class="source-chip" href="#"><span class="dot" aria-hidden="true"></span>Surugaya</a>
-          <a class="source-chip" href="#"><span class="dot" aria-hidden="true"></span>Animate</a>
+          <a class="source-chip" href="titip-beli.html"><span class="dot" aria-hidden="true"></span>Mercari</a>
+          <a class="source-chip" href="titip-beli.html"><span class="dot" aria-hidden="true"></span>Amazon JP</a>
+          <a class="source-chip" href="titip-beli.html"><span class="dot" aria-hidden="true"></span>Surugaya</a>
+          <a class="source-chip" href="titip-beli.html"><span class="dot" aria-hidden="true"></span>Animate</a>
         </div>
         <span class="proxy-more">dan banyak lagi…</span>
       </div>
@@ -285,6 +192,38 @@
   <!-- ========================================================================
        3. EXPLORE BY CATEGORY
        ======================================================================== -->
+
+<!-- ==========================================================================
+     PRODUK TERLARIS + PRE-ORDER — kartu dirender assets/js/beranda.js
+     ========================================================================== -->
+<section class="deret shell" aria-labelledby="terlaris-judul">
+  <div class="section-head">
+    <div class="title">
+      <span class="accent" aria-hidden="true"></span>
+      <h2 id="terlaris-judul">Paling Banyak Dibawa Pulang</h2>
+      <p>Barang yang paling sering masuk keranjang kolektor bulan ini.</p>
+    </div>
+    <a class="link-arrow link-cyan" href="katalog.html?sort=terlaris">Lihat semua terlaris
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M12.5 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+  <div class="grid-produk" data-terlaris></div>
+</section>
+
+<section class="deret shell" aria-labelledby="po-judul">
+  <div class="section-head">
+    <div class="title">
+      <span class="accent" aria-hidden="true"></span>
+      <h2 id="po-judul">Pre-Order Sedang Dibuka</h2>
+      <p>Kunci slot sekarang dengan DP 30% sebelum kuotanya tutup.</p>
+    </div>
+    <a class="link-arrow link-gold" href="katalog.html?status=po">Semua pre-order
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M12.5 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+  <div class="grid-produk" data-baru></div>
+</section>
+
   <section class="explore shell" aria-labelledby="explore-title">
     <div class="section-head">
       <div class="title">
@@ -292,23 +231,23 @@
         <h2 id="explore-title">Explore By Category</h2>
         <p>Telusuri koleksi berdasarkan tipe, skala, dan format rilis.</p>
       </div>
-      <a class="link-arrow link-cyan" href="#">Lihat semua kategori
+      <a class="link-arrow link-cyan" href="katalog.html">Lihat semua kategori
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M12.5 6l6 6-6 6"/></svg>
       </a>
     </div>
 
     <!-- Chip aktif dikelola js/categories.js -->
     <div class="chips" data-chips>
-      <a class="chip" href="#" aria-current="true">Semua <span class="count">1.482</span></a>
-      <a class="chip" href="#">Action Figures <span class="count">386</span></a>
-      <a class="chip" href="#">Plamo / Gunpla <span class="count">254</span></a>
-      <a class="chip" href="#">Nendoroid &amp; Chibi <span class="count">198</span></a>
-      <a class="chip" href="#">Scale Figure 1/7 <span class="count">143</span></a>
-      <a class="chip" href="#">Blind Box <span class="count">117</span></a>
-      <a class="chip" href="#">Trading Card <span class="count">96</span></a>
-      <a class="chip" href="#">Apparel &amp; Merch <span class="count">88</span></a>
-      <a class="chip" href="#">Tools &amp; Paint <span class="count">64</span></a>
-      <a class="chip" href="#">Display Case <span class="count">36</span></a>
+      <a class="chip" href="katalog.html" aria-current="true">Semua <span class="count">1.482</span></a>
+      <a class="chip" href="katalog.html?kategori=action-figure">Action Figures <span class="count">386</span></a>
+      <a class="chip" href="katalog.html?kategori=gunpla">Plamo / Gunpla <span class="count">254</span></a>
+      <a class="chip" href="katalog.html?kategori=chibi">Nendoroid &amp; Chibi <span class="count">198</span></a>
+      <a class="chip" href="katalog.html?kategori=scale">Scale Figure 1/7 <span class="count">143</span></a>
+      <a class="chip" href="katalog.html?kategori=blind-box">Blind Box <span class="count">117</span></a>
+      <a class="chip" href="katalog.html?kategori=kartu">Trading Card <span class="count">96</span></a>
+      <a class="chip" href="katalog.html?kategori=apparel">Apparel &amp; Merch <span class="count">88</span></a>
+      <a class="chip" href="katalog.html?kategori=tools">Tools &amp; Paint <span class="count">64</span></a>
+      <a class="chip" href="katalog.html">Display Case <span class="count">36</span></a>
     </div>
   </section>
 </main>
@@ -316,54 +255,8 @@
 <!-- ==========================================================================
      FOOTER
      ========================================================================== -->
-<footer class="site-footer">
-  <div class="shell">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <a class="logo" href="index.html">
-          <img class="logo-mark" src="assets/img/logo-mark.svg" alt="" width="38" height="38">
-          <span class="logo-text"><b>[Your Site Logo]</b><span>Figure &amp; Hobby</span></span>
-        </a>
-        <p>Toko figure, gunpla, dan merchandise hobi. Pre-order resmi &amp; titip beli dari Jepang.</p>
-      </div>
-
-      <div class="footer-col">
-        <h4>Belanja</h4>
-        <ul>
-          <li><a href="#">Produk Baru</a></li>
-          <li><a href="#">Pre-Order</a></li>
-          <li><a href="#">Ready Stock</a></li>
-          <li><a href="#">Blind Box</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h4>Bantuan</h4>
-        <ul>
-          <li><a href="#">Cara Pesan</a></li>
-          <li><a href="#">Pengiriman</a></li>
-          <li><a href="#">Titip Beli</a></li>
-          <li><a href="#">Hubungi Kami</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h4>Perusahaan</h4>
-        <ul>
-          <li><a href="#">Tentang</a></li>
-          <li><a href="#">Showroom</a></li>
-          <li><a href="#">Kebijakan Privasi</a></li>
-          <li><a href="#">Syarat &amp; Ketentuan</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="footer-bottom">
-      <span>&copy; <span data-year>2026</span> [Your Site Logo]. Semua hak dilindungi.</span>
-      <a href="#main">Kembali ke atas ↑</a>
-    </div>
-  </div>
-</footer>
+<!-- Footer disuntik oleh assets/js/layout.js -->
+<div data-layout-footer></div>
 
 <!-- Toast notifikasi (diisi js/main.js) -->
 <div class="toast" data-toast data-open="false" role="status" aria-live="polite"></div>
@@ -371,6 +264,11 @@
 <!-- ==========================================================================
      JAVASCRIPT modular — main.js dimuat terakhir karena memanggil modul lain
      ========================================================================== -->
+<script src="assets/js/data.js" defer></script>
+<script src="assets/js/ui.js" defer></script>
+<script src="assets/js/cart.js" defer></script>
+<script src="assets/js/layout.js" defer></script>
+<script src="assets/js/beranda.js" defer></script>
 <script src="assets/js/auth.js" defer></script>
 <script src="assets/js/search.js" defer></script>
 <script src="assets/js/showroom.js" defer></script>
