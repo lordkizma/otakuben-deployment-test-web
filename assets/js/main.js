@@ -65,10 +65,17 @@ window.App = window.App || {};
     if (App.auth) App.auth.init();
     if (App.search) App.search.init();
 
+    /* 3b. Lapisan animasi global (GSAP + ScrollTrigger, Lenis, anime.js,
+       AOS, SplitType) lalu adegan three.js beranda. Keduanya aman kalau
+       library CDN gagal dimuat: fungsinya dilewati. */
+    if (App.motion) App.motion.init();
+    if (App.home3d) App.home3d.init();
+
     /* 4. Modul per halaman */
     if (App.showroom) App.showroom.init();
     if (App.categories) App.categories.init();
     if (App.beranda) App.beranda.init();
+    if (App.home) App.home.init();
     if (App.catalog) App.catalog.init();
     if (App.product) App.product.init();
     if (App.keranjang) App.keranjang.init();
