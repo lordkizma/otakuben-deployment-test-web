@@ -1,0 +1,20 @@
+{
+  "name": "[Your Site Logo] — Figure & Hobby Store",
+  "short_name": "Figure Hobby",
+  "description": "Toko action figure, gunpla, nendoroid, blind box, dan titip beli dari Jepang.",
+  "lang": "id",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#F7F7F5",
+  "theme_color": "#08172B",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

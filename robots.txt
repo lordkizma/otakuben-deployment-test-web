@@ -1,0 +1,5 @@
+# robots.txt — ganti domain di baris Sitemap setelah kamu launch
+User-agent: *
+Allow: /
+
+Sitemap: https://domain-kamu.com/sitemap.xml
