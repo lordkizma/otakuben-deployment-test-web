@@ -1,10 +1,13 @@
 /* ==========================================================================
-   BASE.CSS — design token, reset, tipografi, utility
-   Semua warna & jarak diatur di sini. Ubah token = ubah seluruh tampilan.
+   BASE.CSS - fondasi: token warna, reset, tipografi, utilitas
+   Otakuben - Toko Figure & Hobby
+
+   Semua warna, jarak, dan radius diatur di :root supaya bisa diganti
+   dari satu tempat saja.
    ========================================================================== */
 
 :root{
-  /* --- Warna inti: navy dalam / slate / gold + highlight cyan --- */
+  /* Warna utama - navy sebagai dasar, gold & cyan sebagai aksen */
   --navy-900:#08172B;
   --navy-800:#0C2039;
   --navy-700:#12294A;
@@ -15,12 +18,13 @@
   --gold:#E0B463;
   --gold-ink:#2A1E06;
   --gold-soft:#F6ECD8;
+
   --cyan:#2AA6C4;
   --cyan-deep:#127E9B;
   --cyan-ink:#04222C;
   --cyan-soft:#E4F3F7;
 
-  /* --- Netral --- */
+  /* Permukaan & teks */
   --canvas:#F7F7F5;
   --surface:#FFFFFF;
   --surface-2:#F0EFED;
@@ -28,7 +32,11 @@
   --ink:#1B2733;
   --ink-soft:#5F6B78;
 
-  /* --- Sistem --- */
+  /* Status */
+  --sukses:#2F7D52;
+  --bahaya:#B4483C;
+
+  /* Bentuk & gerak */
   --radius-sm:8px;
   --radius:10px;
   --radius-lg:12px;
@@ -36,13 +44,14 @@
   --shadow-hover:0 2px 4px rgba(8,23,43,.07), 0 12px 28px rgba(8,23,43,.12);
   --ease:cubic-bezier(.2,.7,.3,1);
 
-  /* --- Ukuran layout --- */
+  /* Ukuran layout */
   --header-h:72px;
+  --nav-h:46px;
+  --header-total:calc(var(--header-h) + var(--nav-h));
   --shell:1180px;
   --gutter:24px;
   --gap:16px;
 
-  /* --- Tipografi --- */
   --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
 }
 
@@ -50,87 +59,76 @@
    Reset ringan
    -------------------------------------------------------------------------- */
 *,*::before,*::after{box-sizing:border-box;}
-html,body{margin:0;padding:0;}
-html{scroll-behavior:smooth;}
+*{margin:0;padding:0;}
+
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
 
 body{
-  background:var(--canvas);
-  color:var(--ink);
   font-family:var(--font);
-  font-size:16px;
-  line-height:1.5;
+  font-size:16px;line-height:1.5;
+  color:var(--ink);
+  background:var(--canvas);
   -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  overflow-x:hidden;
 }
 
-img,svg,video{display:block;max-width:100%;}
-ul,ol{margin:0;padding:0;list-style:none;}
+img,svg{display:block;max-width:100%;}
+button,input,select,textarea{font:inherit;color:inherit;}
+button{background:none;border:0;cursor:pointer;}
 a{color:inherit;text-decoration:none;}
-button{font:inherit;color:inherit;background:none;border:0;}
-input,select,textarea{font:inherit;}
+ol,ul{list-style:none;}
+table{border-collapse:collapse;width:100%;}
 
-/* Semua elemen aksi wajib terasa bisa diklik */
-a,button,[role="button"],label[for],.clickable{cursor:pointer;}
+h1,h2,h3,h4{line-height:1.22;letter-spacing:-.015em;font-weight:730;}
+h1{font-size:32px;}
+h2{font-size:22px;}
+h3{font-size:17px;}
 
-/* Fokus keyboard yang jelas (aksesibilitas) */
+b,strong{font-weight:720;}
+s{color:var(--slate-400);}
+code{
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:.9em;padding:1px 5px;border-radius:5px;
+  background:var(--surface-2);color:var(--slate-600);
+}
+
 :focus-visible{
   outline:2px solid var(--cyan);
-  outline-offset:3px;
-  border-radius:6px;
+  outline-offset:2px;
 }
 
 /* --------------------------------------------------------------------------
-   Tipografi dasar
+   Utilitas
    -------------------------------------------------------------------------- */
-h1,h2,h3,h4{margin:0;font-weight:700;letter-spacing:-.015em;line-height:1.2;}
-p{margin:0;}
 
-.eyebrow{
-  display:inline-block;
-  font-size:11px;font-weight:700;
-  letter-spacing:.16em;text-transform:uppercase;
-}
-
-/* --------------------------------------------------------------------------
-   Utility
-   -------------------------------------------------------------------------- */
+/* Pembatas lebar isi halaman */
 .shell{
   width:100%;max-width:var(--shell);
-  margin-inline:auto;
-  padding-inline:var(--gutter);
+  margin:0 auto;padding:0 var(--gutter);
 }
 
-/* Teks khusus screen reader */
+/* Teks khusus pembaca layar */
 .sr-only{
   position:absolute;width:1px;height:1px;
   padding:0;margin:-1px;overflow:hidden;
-  clip:rect(0 0 0 0);white-space:nowrap;border:0;
+  clip:rect(0,0,0,0);white-space:nowrap;border:0;
 }
 
-/* Link "lompat ke konten" */
+/* Tautan lompat konten - muncul saat difokus lewat keyboard */
 .skip-link{
-  position:absolute;top:-60px;left:var(--gutter);z-index:200;
-  background:var(--surface);color:var(--ink);
-  padding:12px 18px;border-radius:var(--radius-sm);
-  font-size:14px;font-weight:650;box-shadow:var(--shadow-hover);
+  position:absolute;top:-60px;left:16px;z-index:200;
+  padding:10px 16px;border-radius:var(--radius-sm);
+  background:var(--gold);color:var(--gold-ink);
+  font-size:14px;font-weight:650;
   transition:top .18s var(--ease);
 }
 .skip-link:focus{top:12px;}
 
-/* Lapisan dekorasi (SVG latar di dalam banner) */
-.deco{
-  position:absolute;z-index:1;
-  pointer-events:none;user-select:none;
+/* Label kecil di atas judul */
+.eyebrow{
+  display:inline-block;
+  font-size:11px;font-weight:750;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--cyan);
 }
-.deco-fill{inset:0;width:100%;height:100%;}
 
-/* Hormati preferensi "kurangi animasi" */
-@media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto;}
-  *,*::before,*::after{
-    transition-duration:.01ms !important;
-    animation-duration:.01ms !important;
-    animation-iteration-count:1 !important;
-  }
-}
+/* main di halaman dalam butuh ruang untuk header yang fixed */
+main{padding-top:var(--header-total);}
