@@ -1,0 +1,306 @@
+/* ==========================================================================
+   HOME.CSS — seksi khas beranda Otakuben (konsep sendiri)
+   Urutan seksi: VAULT → BENTO → RAK BERJALAN → GACHA → JALUR → MEJA → SUARA
+   Header & footer TIDAK diatur di sini (tetap pakai header.css).
+   ========================================================================== */
+
+/* =========================================================================
+   1. VAULT — hero "kotak kaca" dengan panggung three.js
+   ========================================================================= */
+.vault{position:relative;overflow:hidden;isolation:isolate;color:#fff;
+  background:radial-gradient(118% 118% at 76% 8%,#153057 0%,#0C2039 46%,#08172B 100%)}
+.vault-canvas{position:absolute;inset:0;z-index:0;display:block;width:100%;height:100%}
+.vault-grid-lines{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.5;
+  background-image:
+    repeating-linear-gradient(90deg,rgba(255,255,255,.045) 0 1px,transparent 1px 92px),
+    repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 92px)}
+.vault-fallback{position:absolute;right:2%;top:50%;transform:translateY(-50%);
+  z-index:1;width:min(42%,420px);opacity:.9;pointer-events:none}
+.vault-inner{position:relative;z-index:3;display:grid;
+  grid-template-columns:minmax(0,1.05fr) minmax(0,.85fr);gap:36px;align-items:center;
+  padding:clamp(46px,6.4vw,92px) 0 clamp(56px,7vw,96px)}
+.vault-kicker{display:inline-flex;align-items:center;gap:9px;font-size:11.5px;
+  font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);
+  border:1px solid rgba(224,180,99,.38);border-radius:999px;padding:7px 14px;
+  background:rgba(224,180,99,.08)}
+.vault-kicker .titik{width:7px;height:7px;border-radius:50%;background:var(--gold)}
+.vault-title{margin-top:20px;font-size:clamp(33px,5.3vw,62px);line-height:1.03;
+  letter-spacing:-.032em;font-weight:800;text-wrap:balance}
+.vault-title em{font-style:normal;color:var(--gold)}
+.vault-title .garis{display:inline-block;position:relative}
+.vault-title .garis::after{content:"";position:absolute;left:0;right:0;bottom:.04em;
+  height:.1em;background:rgba(42,166,196,.55);border-radius:2px}
+.vault-sub{margin-top:18px;max-width:52ch;font-size:clamp(14.5px,1.3vw,16.5px);
+  line-height:1.66;color:#C6D2DF}
+.vault-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.vault-stats{display:flex;flex-wrap:wrap;gap:clamp(20px,3vw,42px);margin-top:38px;
+  padding-top:20px;border-top:1px solid rgba(255,255,255,.14)}
+.vault-stat b{display:block;font-size:clamp(22px,2.6vw,30px);font-weight:800;color:var(--gold);
+  line-height:1.1}
+.vault-stat span{display:block;margin-top:5px;font-size:11px;font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--slate-200)}
+.vault-stage{position:relative;min-height:clamp(300px,38vw,420px);display:grid;
+  align-content:end;gap:12px;justify-items:end}
+.vault-tag{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;
+  border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);
+  backdrop-filter:blur(6px);font-size:12.5px;color:#E7EDF4;font-weight:600}
+.vault-tag b{color:var(--gold)}
+.vault-hint{position:absolute;left:50%;bottom:14px;z-index:3;transform:translateX(-50%);
+  display:flex;align-items:center;gap:10px;font-size:11px;font-weight:600;
+  letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+.vault-hint .batang{display:block;width:1px;height:26px;
+  background:linear-gradient(180deg,transparent,var(--gold))}
+
+/* =========================================================================
+   2. BENTO — "Kotak Bento Koleksi" (tanda tangan visual Otakuben)
+   ========================================================================= */
+.bento{padding:clamp(54px,7.6vw,104px) 0 clamp(20px,3vw,34px)}
+.bento-wrap{position:relative;margin-top:26px}
+.bento-tray{position:relative;display:grid;gap:14px;
+  grid-template-columns:1.35fr 1fr 1fr;grid-template-rows:210px 210px}
+.kotak{position:relative;overflow:hidden;border-radius:16px;text-decoration:none;
+  color:#fff;background:var(--navy-800);border:1px solid rgba(255,255,255,.08);
+  display:flex;flex-direction:column;justify-content:flex-end;padding:20px;
+  transition:transform .45s var(--ease),box-shadow .45s var(--ease),border-color .3s}
+.kotak:hover,.kotak:focus-visible{transform:translateY(-7px);
+  border-color:rgba(224,180,99,.55);box-shadow:0 20px 40px rgba(8,23,43,.4)}
+.kotak.besar{grid-column:1;grid-row:1/span 2}
+.kotak.tinggi{grid-column:3;grid-row:1/span 2}
+.kotak.k-a{grid-column:2;grid-row:1}
+.kotak.k-b{grid-column:2;grid-row:2}
+.kotak-art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:.42;transition:transform .6s var(--ease),opacity .4s}
+.kotak:hover .kotak-art{transform:scale(1.09);opacity:.55}
+.kotak::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(8,23,43,.05) 0%,rgba(8,23,43,.86) 78%)}
+.kotak .isi{position:relative;z-index:2}
+.kotak .no{position:absolute;top:16px;left:18px;z-index:2;font-size:11px;font-weight:700;
+  letter-spacing:.18em;color:rgba(255,255,255,.5)}
+.kotak .isi h3{font-size:clamp(17px,1.8vw,22px);font-weight:750;letter-spacing:-.01em}
+.kotak .isi p{margin-top:6px;font-size:13px;line-height:1.55;color:#C3CEDA;max-width:34ch}
+.kotak .isi .jum{display:inline-block;margin-top:12px;font-size:11.5px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.kotak.besar .isi h3{font-size:clamp(21px,2.4vw,29px)}
+
+/* Tutup kotak yang tergeser saat scroll (hanya kalau library aktif) */
+.tutup{position:absolute;inset:-6px;z-index:5;border-radius:20px;display:none;
+  place-items:center;background:linear-gradient(160deg,#0E2340,#08172B);
+  border:1px solid rgba(224,180,99,.35);overflow:hidden}
+.libs-on .tutup{display:grid}
+.tutup::before{content:"";position:absolute;inset:0;opacity:.5;
+  background-image:repeating-linear-gradient(135deg,rgba(224,180,99,.09) 0 2px,transparent 2px 16px)}
+.tutup-teks{position:relative;text-align:center;color:#fff}
+.tutup-teks b{display:block;font-size:clamp(18px,2.6vw,30px);font-weight:800;letter-spacing:.04em}
+.tutup-teks span{display:block;margin-top:10px;font-size:11px;font-weight:600;
+  letter-spacing:.26em;text-transform:uppercase;color:var(--gold)}
+
+/* Deret "sumpit" — kategori sisa */
+.sumpit{display:flex;flex-wrap:wrap;gap:9px;margin-top:16px}
+.sumpit a{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;
+  background:var(--surface);border:1px solid var(--border);font-size:12.5px;font-weight:650;
+  color:var(--ink);text-decoration:none;transition:transform .25s var(--ease),
+  border-color .25s,background-color .25s}
+.sumpit a::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--cyan)}
+.sumpit a:hover{transform:translateY(-3px);border-color:var(--navy-700);background:var(--gold-soft)}
+
+/* =========================================================================
+   3. RAK BERJALAN — scroll horizontal yang di-pin GSAP
+   ========================================================================= */
+.rak{position:relative;background:var(--navy-900);color:#fff;overflow:hidden}
+.rak-head{padding:clamp(46px,6vw,80px) var(--gutter) 0;max-width:var(--shell);
+  margin-inline:auto}
+.rak-head h2{font-size:clamp(24px,3.2vw,38px);font-weight:800;letter-spacing:-.028em}
+.rak-head p{margin-top:10px;max-width:56ch;font-size:14.5px;line-height:1.65;color:#B9C6D4}
+.rak-viewport{overflow-x:auto;overflow-y:hidden;scrollbar-width:none;
+  -webkit-overflow-scrolling:touch}
+.rak-viewport::-webkit-scrollbar{display:none}
+.libs-on .rak-viewport{overflow:hidden}
+.rak-track{display:flex;gap:20px;width:max-content;
+  padding:clamp(28px,4vw,44px) max(var(--gutter),calc((100vw - var(--shell))/2))
+          clamp(34px,4.4vw,52px)}
+.bay{position:relative;flex:0 0 min(560px,84vw);border-radius:18px;padding:22px 22px 24px;
+  background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
+  border:1px solid rgba(255,255,255,.1)}
+.bay .ghost{position:absolute;right:16px;top:-14px;font-size:clamp(64px,9vw,104px);
+  font-weight:800;line-height:1;color:rgba(255,255,255,.055);letter-spacing:-.05em}
+.bay .label{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.bay h3{position:relative;margin-top:12px;font-size:clamp(19px,2.1vw,24px);font-weight:780;
+  letter-spacing:-.02em}
+.bay p{margin-top:8px;font-size:13.5px;line-height:1.6;color:#B9C6D4;max-width:44ch}
+.bay .isi-bay{margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bay .lanjut{display:inline-flex;align-items:center;gap:8px;margin-top:18px;font-size:13px;
+  font-weight:700;color:var(--gold);text-decoration:none}
+.bay .lanjut svg{width:16px;height:16px;transition:transform .3s var(--ease)}
+.bay .lanjut:hover svg{transform:translateX(4px)}
+.rak-bar{position:relative;height:3px;margin:0 max(var(--gutter),calc((100vw - var(--shell))/2))
+  clamp(40px,6vw,64px);background:rgba(255,255,255,.12);border-radius:99px}
+.rak-bar i{position:absolute;left:0;top:0;bottom:0;width:8%;border-radius:99px;
+  background:linear-gradient(90deg,var(--gold),var(--cyan))}
+.rak-geser{display:flex;align-items:center;gap:10px;justify-content:flex-end;
+  margin:0 max(var(--gutter),calc((100vw - var(--shell))/2)) 12px;font-size:11px;
+  font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+
+/* =========================================================================
+   4. GACHA — kapsul 3D interaktif (three.js + anime.js + confetti)
+   ========================================================================= */
+.gacha{position:relative;overflow:hidden;color:#fff;
+  background:radial-gradient(100% 120% at 18% 0%,#16325A 0%,#0B1E36 52%,#08172B 100%);
+  padding:clamp(54px,7.6vw,104px) 0}
+.gacha-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,52px);
+  align-items:center}
+.gacha-stage{position:relative;width:100%;max-width:460px;margin-inline:auto;aspect-ratio:1/1;
+  border-radius:24px;overflow:hidden;background:rgba(255,255,255,.035);
+  border:1px solid rgba(255,255,255,.12);cursor:grab}
+.gacha-stage:active{cursor:grabbing}
+.gacha-canvas{position:absolute;inset:0;display:block;width:100%;height:100%}
+.gacha-fallback{position:absolute;inset:0;display:grid;place-items:center;padding:28px}
+.gacha-fallback img{width:70%;max-width:240px;opacity:.9}
+.gacha-stage .putar-info{position:absolute;left:0;right:0;bottom:12px;text-align:center;
+  font-size:10.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(255,255,255,.5)}
+.gacha-kicker{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;
+  font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--cyan);background:rgba(42,166,196,.12);border:1px solid rgba(42,166,196,.4)}
+.gacha h2{margin-top:18px;font-size:clamp(26px,3.4vw,42px);font-weight:800;letter-spacing:-.03em}
+.gacha h2 em{font-style:normal;color:var(--gold)}
+.gacha .ket{margin-top:14px;max-width:50ch;font-size:14.5px;line-height:1.66;color:#C1CEDC}
+.gacha-aksi{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:26px}
+.pull-sisa{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(255,255,255,.6)}
+.rate{margin-top:26px;display:grid;gap:10px;max-width:420px}
+.rate-baris{display:grid;grid-template-columns:88px 1fr 46px;gap:12px;align-items:center;
+  font-size:12.5px;color:#C1CEDC}
+.rate-baris .bar{height:6px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden}
+.rate-baris .bar i{display:block;height:100%;border-radius:99px;width:0;
+  background:linear-gradient(90deg,var(--cyan),var(--gold))}
+.rate-baris b{text-align:right;color:#fff;font-weight:700}
+.gacha-hasil{margin-top:24px;border-radius:16px;padding:18px;display:none;
+  background:rgba(255,255,255,.06);border:1px solid rgba(224,180,99,.4)}
+.gacha-hasil[data-tampil="true"]{display:block}
+.gacha-hasil .judul{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold)}
+.gacha-hasil .nama{margin-top:8px;font-size:17px;font-weight:750}
+.gacha-hasil .harga{margin-top:4px;font-size:14px;color:#C1CEDC}
+.gacha-hasil .kode{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:9px 14px;
+  border-radius:10px;background:var(--gold);color:var(--gold-ink);font-weight:800;
+  letter-spacing:.14em;font-size:12.5px}
+.gacha-hasil .tautan{display:inline-flex;margin-top:14px;margin-left:10px;font-size:13px;
+  font-weight:700;color:var(--cyan);text-decoration:none}
+
+/* =========================================================================
+   5. JALUR PRODUKSI — garis progres yang digambar saat scroll
+   ========================================================================= */
+.jalur{padding:clamp(54px,7.6vw,100px) 0}
+.jalur-rel{position:relative;margin-top:34px;padding-left:8px}
+.jalur-jalan{position:absolute;left:35px;top:14px;bottom:52px;width:2px;
+  background:var(--border);border-radius:2px;overflow:hidden}
+.jalur-jalan i{position:absolute;left:0;right:0;top:0;height:100%;
+  transform:scaleY(0);transform-origin:top center;
+  background:linear-gradient(180deg,var(--gold),var(--cyan))}
+.stasiun{position:relative;display:grid;grid-template-columns:72px minmax(0,1fr);gap:20px;
+  padding-bottom:30px}
+.stasiun .titik{width:72px;height:72px;border-radius:20px;display:grid;place-items:center;
+  background:var(--surface);border:1px solid var(--border);color:var(--slate-400);
+  transition:border-color .35s var(--ease),color .35s,background-color .35s,transform .35s var(--ease)}
+.stasiun .titik svg{width:28px;height:28px}
+.stasiun.on .titik{border-color:var(--gold);background:var(--gold-soft);color:var(--navy-700);
+  transform:translateY(-2px)}
+.stasiun .kartu{background:var(--surface);border:1px solid var(--border);border-radius:14px;
+  padding:18px 20px;box-shadow:var(--shadow)}
+.stasiun .kartu .tahap{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--cyan-deep)}
+.stasiun .kartu h3{margin-top:8px;font-size:17px;font-weight:730}
+.stasiun .kartu p{margin-top:7px;font-size:13.5px;line-height:1.62;color:var(--ink-soft)}
+.stasiun .kartu .durasi{display:inline-block;margin-top:12px;font-size:12px;font-weight:700;
+  color:var(--navy-700);background:var(--surface-2);border-radius:8px;padding:5px 10px}
+
+/* =========================================================================
+   6. MEJA KERJA — titip beli + member rewards
+   ========================================================================= */
+.meja{padding:0 0 clamp(54px,7.6vw,100px)}
+.meja-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px}
+.meja-kartu{position:relative;overflow:hidden;border-radius:18px;padding:clamp(22px,2.6vw,32px);
+  background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow)}
+.meja-kartu.gelap{background:linear-gradient(150deg,#12294A,#08172B);color:#fff;
+  border-color:transparent}
+.meja-kartu h3{font-size:clamp(19px,2.2vw,26px);font-weight:780;letter-spacing:-.02em}
+.meja-kartu p{margin-top:10px;font-size:14px;line-height:1.65;color:var(--ink-soft);max-width:46ch}
+.meja-kartu.gelap p{color:#C1CEDC}
+.meja-kartu .aksi{margin-top:20px;display:flex;flex-wrap:wrap;gap:10px}
+.sumber-marquee{margin-top:20px;border-top:1px dashed var(--border);padding-top:16px}
+.meja-kartu.gelap .sumber-marquee{border-color:rgba(255,255,255,.18)}
+.sumber-marquee .marquee::before,.sumber-marquee .marquee::after{display:none}
+.sumber-marquee .item{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;
+  border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);
+  font-size:12.5px;font-weight:650;white-space:nowrap;color:#E7EDF4}
+.sumber-marquee .item .dot{width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.poin-blok{margin-top:20px;display:flex;align-items:flex-end;gap:12px}
+.poin-besar{font-size:clamp(38px,5vw,54px);font-weight:800;line-height:1;color:var(--gold);
+  letter-spacing:-.03em}
+.poin-blok span{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--slate-400);padding-bottom:6px}
+.koin{position:absolute;right:-14px;top:-14px;width:132px;height:132px;opacity:.16;
+  pointer-events:none}
+.tangga-poin{margin-top:18px;display:grid;gap:8px}
+.tangga-poin div{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  font-size:12.5px;color:var(--ink-soft);padding:9px 12px;border-radius:10px;
+  background:var(--surface-2)}
+.tangga-poin div b{color:var(--navy-700)}
+
+/* =========================================================================
+   7. SUARA KOLEKTOR — marquee testimoni dua baris
+   ========================================================================= */
+.suara{padding:clamp(48px,6.4vw,88px) 0;background:var(--surface-2);overflow:hidden}
+.suara .shell{position:relative}
+.suara-deret{margin-top:26px;display:grid;gap:14px}
+.quote{flex:0 0 min(340px,80vw);background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;padding:18px;box-shadow:var(--shadow)}
+.quote p{font-size:13.8px;line-height:1.66;color:var(--ink)}
+.quote .who{display:flex;align-items:center;gap:10px;margin-top:14px}
+.quote .av{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;
+  background:var(--navy-700);color:var(--gold);font-weight:800;font-size:13px}
+.quote .who b{display:block;font-size:12.5px}
+.quote .who small{display:block;font-size:11.5px;color:var(--slate-400)}
+.quote .bintang{display:flex;gap:2px;margin-bottom:10px;color:var(--gold)}
+.quote .bintang svg{width:13px;height:13px}
+
+/* =========================================================================
+   7b. EXPLORE BY CATEGORY
+   ========================================================================= */
+.jelajah{padding:clamp(48px,6.4vw,84px) 0 clamp(56px,7vw,96px)}
+
+/* =========================================================================
+   8. RESPONSIF SEKSI BERANDA
+   ========================================================================= */
+@media (max-width:1080px){
+  .vault-inner{grid-template-columns:1fr;gap:24px}
+  .vault-stage{min-height:220px;justify-items:start;align-content:start}
+  .vault-fallback{width:min(52%,320px);opacity:.5}
+  .bento-tray{grid-template-columns:1fr 1fr;grid-template-rows:200px 200px 200px}
+  .kotak.besar{grid-column:1/span 2;grid-row:1}
+  .kotak.k-a{grid-column:1;grid-row:2}
+  .kotak.k-b{grid-column:2;grid-row:2}
+  .kotak.tinggi{grid-column:1/span 2;grid-row:3}
+  .gacha-grid{grid-template-columns:1fr}
+  .meja-grid{grid-template-columns:1fr}
+}
+@media (max-width:720px){
+  .vault-title{font-size:clamp(28px,8vw,40px)}
+  .vault-stats{gap:18px}
+  .vault-hint{display:none}
+  .bento-tray{grid-template-columns:1fr;grid-template-rows:none;gap:12px}
+  .kotak{min-height:200px}
+  .kotak.besar,.kotak.tinggi,.kotak.k-a,.kotak.k-b{grid-column:1;grid-row:auto}
+  .bay{flex:0 0 84vw;padding:18px}
+  .bay .isi-bay{grid-template-columns:1fr}
+  .jalur-jalan{left:26px;bottom:44px}
+  .stasiun{grid-template-columns:54px minmax(0,1fr);gap:14px}
+  .stasiun .titik{width:54px;height:54px;border-radius:16px}
+  .stasiun .titik svg{width:22px;height:22px}
+  .rate-baris{grid-template-columns:74px 1fr 42px}
+}
+@media (max-width:380px){
+  .vault-stat b{font-size:20px}
+  .quote{flex-basis:88vw}
+}
