@@ -1,123 +1,100 @@
-# [Your Site Logo] — Figure & Hobby Store
+# Otakuben — Front-End Toko Figure & Hobby
 
-Website e-commerce statis (HTML + CSS + JS murni, **tanpa framework, tanpa build step**).
-Buka `index.html` langsung di browser dan langsung jalan.
+Front-end statis (HTML + CSS + JavaScript murni) untuk toko action figure, gunpla,
+nendoroid, blind box, trading card, apparel, dan jasa titip beli dari Jepang.
+Belum ada back-end: semua data produk ada di `assets/js/data.js` dan status
+keranjang/akun disimpan di `localStorage` browser.
 
----
-
-## 📁 Struktur folder
-
-```
-otakuben-deployment-test-web/
-├── index.html              ← struktur halaman (semua markup di sini)
-├── 404.html                ← halaman error
-├── favicon.svg             ← ikon tab browser
-├── site.webmanifest        ← metadata PWA / install ke homescreen
-├── robots.txt              ← untuk SEO (ganti domain di dalamnya)
-├── README.md               ← file ini
-└── assets/
-    ├── css/
-    │   ├── base.css        ← 🎨 WARNA & FONT (design token) + reset
-    │   ├── header.css      ← header, search bar, ikon aksi, tombol login
-    │   ├── components.css  ← card, tombol, pill, chip, toast
-    │   ├── sections.css    ← layout hero, banner, kategori, explore, footer
-    │   └── responsive.css  ← media query (WAJIB dimuat terakhir)
-    ├── js/
-    │   ├── auth.js         ← state login/logout + dropdown profil
-    │   ├── search.js       ← shortcut Ctrl+K + submit pencarian
-    │   ├── showroom.js     ← viewer 360° (ganti-ganti sudut foto)
-    │   ├── categories.js   ← chip kategori aktif
-    │   └── main.js         ← titik masuk, memanggil semua modul di atas
-    └── img/                ← semua ilustrasi SVG (logo, banner, showroom)
-```
+**Live (GitHub Pages):** https://lordkizma.github.io/otakuben-deployment-test-web/
 
 ---
 
-## 🎨 Mau ganti warna? Cukup 1 file
+## Cara menjalankan
 
-Semua warna hidup di `:root` dalam **`assets/css/base.css`**. Ubah di situ, seluruh
-site ikut berubah — nggak perlu cari-cari di file lain.
-
-```css
-:root{
-  --navy-900:#08172B;   /* warna paling gelap (header, footer) */
-  --navy-800:#0C2039;
-  --gold:#E0B463;       /* highlight utama / tombol CTA */
-  --cyan:#2AA6C4;       /* highlight sekunder */
-  --canvas:#F7F7F5;     /* background halaman */
-  --ink:#1B2733;        /* warna teks */
-  --radius-lg:12px;     /* kelengkungan sudut card */
-  --header-h:72px;      /* tinggi header */
-  --shell:1180px;       /* lebar maksimal konten */
-}
-```
-
----
-
-## ⚙️ Fungsi tiap file JS
-
-| File | Isinya | Cara pakai |
-|---|---|---|
-| `auth.js` | Ganti state login | `App.auth.login("Muhamad")` → header jadi "Halo, Muhamad". `App.auth.logout()` → balik ke "Masuk / Daftar" |
-| `search.js` | Pencarian | `Ctrl+K` / `Cmd+K` fokus ke kolom search. Ganti bagian `GANTI DI SINI` untuk redirect ke halaman hasil |
-| `showroom.js` | Viewer 360° | Edit array `VIEWS` untuk pakai foto toko asli (`.jpg`/`.webp` juga bisa) |
-| `categories.js` | Chip kategori | Ganti bagian `GANTI DI SINI` untuk memanggil API produk |
-| `main.js` | Bootstrap | Menyalakan semua modul + `App.toast("pesan")` untuk notifikasi |
-
-> Semua modul nempel di global `window.App`, **bukan** ES module — jadi tetap jalan
-> walau file dibuka lewat `file://` tanpa server.
-
----
-
-## 🚀 Jalankan lokal
-
-Cara paling gampang — klik dua kali `index.html`. Kalau mau via server lokal:
+Cukup buka `index.html` di browser. Kalau mau mirip kondisi hosting:
 
 ```bash
-git clone https://github.com/lordkizma/otakuben-deployment-test-web.git
-cd otakuben-deployment-test-web
 python3 -m http.server 8000
 # buka http://localhost:8000
 ```
 
+Deploy = upload semua isi folder ini apa adanya. Tidak butuh build step,
+npm install, atau framework.
+
 ---
 
-## 🌐 Cara launch
+## Struktur folder
 
-**GitHub Pages** (repo ini)
-1. Settings → Pages → Source: `main` / `/ (root)`
-2. Tunggu ~1 menit
-3. Live di `https://lordkizma.github.io/otakuben-deployment-test-web/`
-
-**Netlify** — buka [app.netlify.com/drop](https://app.netlify.com/drop), drag folder repo. Selesai.
-
-**Vercel**
-```bash
-npm i -g vercel
-vercel --prod
+```
+.
+├── index.html            beranda: hero, banner, terlaris, pre-order, kategori
+├── katalog.html          daftar produk + filter + sortir
+├── produk.html           detail produk (?id=sf-001)
+├── keranjang.html        keranjang + kode promo
+├── checkout.html         data penerima, kurir, pembayaran, ringkasan
+├── masuk.html            masuk / daftar (?mode=daftar)
+├── akun.html             pesanan, riwayat, poin, wishlist (#pesanan, #poin, ...)
+├── titip-beli.html       form jastip Jepang + estimasi biaya otomatis
+├── bantuan.html          FAQ, cara pesan, rincian biaya
+├── 404.html              halaman tidak ditemukan
+├── favicon.svg  robots.txt  site.webmanifest
+└── assets/
+    ├── css/   base, components, header, sections, shop, responsive
+    ├── js/    modul-modul kecil, satu file satu tanggung jawab
+    └── img/   SVG dekoratif & logo
 ```
 
-**Hosting biasa (cPanel/FTP)** — upload semua isi repo ke `public_html/`.
+## Urutan CSS (jangan diacak)
 
----
+`base` → `header` → `components` → `sections` → `shop` → `responsive`
 
-## ✅ Checklist sebelum launch
+`responsive.css` **harus paling akhir** karena isinya media query yang menimpa
+aturan di atasnya.
 
-- [ ] Ganti `[Your Site Logo]` dengan nama brand kamu (di `index.html`, `404.html`, `site.webmanifest`)
-- [ ] Ganti `assets/img/logo-mark.svg` + `favicon.svg` dengan logo asli
-- [ ] Isi semua `href="#"` dengan URL halaman yang sebenarnya
-- [ ] Ganti angka demo (jumlah produk, poin, tanggal event) dengan data asli
-- [ ] Ganti domain di `robots.txt`
-- [ ] Update `og:image` di `<head>` `index.html` supaya preview share bagus
-- [ ] Hubungkan `search.js` dan `categories.js` ke backend/API kamu
+## Urutan JavaScript
 
----
+Semua file pakai `<script defer>` biasa (bukan ES module) dan menempel ke objek
+global `window.App`. Aturan penting: **`main.js` selalu dimuat paling akhir**,
+karena hanya `main.js` yang memanggil `init()` tiap modul.
 
-## 📐 Catatan teknis
+| File | Tugas |
+|---|---|
+| `data.js` | 24 produk, 8 kategori, format rupiah, helper pencarian |
+| `layout.js` | menyuntik header & footer ke `[data-layout-header]` / `[data-layout-footer]` |
+| `ui.js` | kartu produk, gambar placeholder, badge, wishlist |
+| `cart.js` | isi keranjang, jumlah, subtotal, event `cart:change` |
+| `catalog.js` | filter kategori/harga/brand, sortir, hasil |
+| `product.js` | galeri, spesifikasi, qty, produk terkait |
+| `keranjang.js` | baris keranjang, promo, ringkasan |
+| `checkout.js` | validasi form, ongkir, pembuatan nomor invoice |
+| `account.js` | tab akun, pesanan, poin, wishlist |
+| `titipbeli.js` | hitung estimasi jastip (kurs, fee, ongkir Jepang) |
+| `masuk.js` | tab masuk/daftar + validasi |
+| `beranda.js` | deret terlaris & pre-order di beranda |
+| `auth.js` `search.js` `showroom.js` `categories.js` | header, pencarian, showroom, chip kategori |
+| `main.js` | booting semua modul |
 
-- Responsive di 3 breakpoint: **1080px**, **860px**, **720px**
-- Mendukung `prefers-reduced-motion` (animasi mati otomatis)
-- Kontras teks memenuhi **WCAG AA**, semua target sentuh minimal **44×44px**
-- Markup semantik + `skip-link`, `aria-label`, dan `sr-only` untuk screen reader
-- Ikon keranjang **sengaja tanpa badge angka** (state kosong)
-- Semua ilustrasi berupa SVG buatan sendiri — ringan dan bebas dipakai
+## Data tersimpan di browser
+
+| Key `localStorage` | Isi |
+|---|---|
+| `otaku_cart_v1` | isi keranjang |
+| `otaku_wish_v1` | wishlist |
+| `otaku_promo_v1` | kode promo aktif |
+| `otaku_orders_v1` | pesanan hasil checkout |
+
+Kode promo contoh: `OTAKU10` (diskon 10%), `GRATISKIRIM` (ongkir 0),
+`HOBI50K` (potong Rp50.000).
+
+## Catatan gambar
+
+Semua gambar produk digambar oleh kode (gradasi + siluet SVG), bukan foto asli,
+supaya repo ringan dan bebas masalah hak cipta. Ganti dengan foto asli lewat
+field gambar di `assets/js/data.js` saat produk sungguhan sudah ada.
+
+## Langkah berikutnya (back-end)
+
+1. Ganti `data.js` dengan panggilan API produk.
+2. Pindahkan keranjang & pesanan dari `localStorage` ke database + sesi login.
+3. Sambungkan pembayaran (Midtrans/Xendit) di `checkout.js`.
+4. Buat panel admin untuk stok, harga, dan status pre-order.
