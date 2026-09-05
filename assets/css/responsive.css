@@ -71,3 +71,127 @@
   .icon-btn{width:38px;height:38px;}
   .proxy-sources{grid-template-columns:1fr;}
 }
+
+
+/* ==========================================================================
+   BAGIAN TAMBAHAN — HALAMAN TOKO (shop.css)
+   Ditulis terakhir supaya menang tanpa perlu !important.
+   Breakpoint mengikuti pola yang sudah ada: 1080px → 860px → 720px → 380px
+   ========================================================================== */
+
+@media (max-width: 1080px) {
+  /* Katalog: sidebar filter jadi lebih sempit */
+  .katalog-layout { grid-template-columns: 210px 1fr; }
+
+  /* Keranjang & checkout: ringkasan turun ke bawah daftar */
+  .belanja-layout { grid-template-columns: 1fr; }
+  .ringkasan { position: static; }
+
+  /* Detail produk: galeri dan info jadi satu kolom */
+  .detail-layout { grid-template-columns: 1fr; gap: 22px; }
+
+  /* Kartu produk: 4 kolom → 3 kolom */
+  .grid-produk { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+  /* Akun: menu samping lebih sempit */
+  .akun-layout { grid-template-columns: 200px 1fr; }
+}
+
+@media (max-width: 860px) {
+  /* Strip navigasi kategori bisa digeser ke samping */
+  .nav-strip-inner {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .nav-strip-inner::-webkit-scrollbar { display: none; }
+  .nav-link { white-space: nowrap; }
+
+  /* Akun: menu jadi baris horizontal */
+  .akun-layout { grid-template-columns: 1fr; }
+  .akun-nav {
+    position: static;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 10px;
+  }
+  .akun-nav a { white-space: nowrap; }
+
+  /* Langkah checkout & titip beli */
+  .langkah-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 720px) {
+  :root { --nav-h: 42px; }
+
+  /* ------------------------------------------------------------------
+     Filter katalog jadi panel geser (drawer)
+     Tombol [data-filter-toggle] menambah atribut data-buka pada panel.
+     ------------------------------------------------------------------ */
+  .katalog-layout { grid-template-columns: 1fr; }
+  .filter-toggle { display: inline-flex; width: 100%; justify-content: center; }
+
+  .filter-panel {
+    position: fixed;
+    z-index: 60;
+    inset: 0 auto 0 0;
+    width: min(310px, 86vw);
+    max-height: 100%;
+    overflow-y: auto;
+    border-radius: 0;
+    border-right: 1px solid var(--border);
+    box-shadow: var(--shadow-hover);
+    transform: translateX(-102%);
+    transition: transform .28s var(--ease);
+  }
+  .filter-panel[data-buka="true"] { transform: translateX(0); }
+
+  /* Baris hasil & pengurutan */
+  .hasil-bar { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .sortir { width: 100%; }
+  .sortir .select { flex: 1 1 auto; }
+
+  /* Kartu produk: 2 kolom */
+  .grid-produk { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .p-nama { font-size: 13.5px; }
+
+  /* Detail produk */
+  .galeri-strip { gap: 8px; }
+  .beli-baris { flex-direction: column; align-items: stretch; }
+  .beli-baris .btn { width: 100%; }
+
+  /* Baris keranjang: thumbnail kecil + info menumpuk */
+  .baris-keranjang {
+    grid-template-columns: 68px 1fr;
+    grid-template-areas: "gambar info" "kontrol kontrol";
+    gap: 12px;
+  }
+  .baris-keranjang .k-thumb { grid-area: gambar; }
+  .baris-keranjang .k-info { grid-area: info; }
+  .baris-keranjang .k-kontrol { grid-area: kontrol; justify-content: space-between; }
+
+  /* Form dua kolom → satu kolom */
+  .form-grid { grid-template-columns: 1fr; }
+  .opsi-kartu { grid-template-columns: 1fr; }
+
+  /* Langkah checkout lebih rapat */
+  .langkah { font-size: 12px; gap: 6px; }
+  .langkah .garis { min-width: 12px; }
+  .langkah-grid { grid-template-columns: 1fr; }
+
+  /* Baris produk beranda */
+  .deret { padding-top: 6px; }
+}
+
+@media (max-width: 380px) {
+  /* Layar sangat kecil: kartu produk satu kolom biar teks tetap kebaca */
+  .grid-produk { grid-template-columns: 1fr; }
+  .tabel-biaya { font-size: 12.5px; }
+  .avatar-besar { width: 56px; height: 56px; }
+}
+
+/* Hormati preferensi kurangi gerak untuk panel filter */
+@media (prefers-reduced-motion: reduce) {
+  .filter-panel { transition: none; }
+}
