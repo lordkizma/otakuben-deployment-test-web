@@ -15,6 +15,9 @@
 <link rel="stylesheet" href="assets/css/components.css">
 <link rel="stylesheet" href="assets/css/sections.css">
 <link rel="stylesheet" href="assets/css/shop.css">
+<!-- CSS library animasi (AOS) + lapisan animasi sendiri -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+<link rel="stylesheet" href="assets/css/motion.css">
 <link rel="stylesheet" href="assets/css/responsive.css">
 </head>
 
@@ -163,6 +166,14 @@
 
 <div class="toast" data-toast data-open="false" role="status" aria-live="polite"></div>
 
+<!-- LIBRARY ANIMASI (CDN) - dimuat sebelum skrip sendiri, semua pakai defer -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/bundled/lenis.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/split-type@0.3.4/umd/index.min.js" defer></script>
+
 <script src="assets/js/data.js" defer></script>
 <script src="assets/js/ui.js" defer></script>
 <script src="assets/js/cart.js" defer></script>
@@ -170,6 +181,7 @@
 <script src="assets/js/auth.js" defer></script>
 <script src="assets/js/search.js" defer></script>
 <script src="assets/js/titipbeli.js" defer></script>
+<script src="assets/js/motion.js" defer></script>
 <script src="assets/js/main.js" defer></script>
 </body>
 </html>
