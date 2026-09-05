@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" preserveAspectRatio="xMidYMid slice" fill="none" role="img" aria-label="Display kaca showroom">
+  <rect width="320" height="220" fill="#1A2B3A"/>
+  <rect width="320" height="220" fill="#08151F" fill-opacity=".32"/>
+
+  <!-- Tiga lemari kaca -->
+  <g fill="none" stroke="#7FE0F5" stroke-opacity=".34" stroke-width="1.4">
+    <rect x="28" y="30" width="78" height="150" rx="5"/>
+    <rect x="120" y="30" width="78" height="150" rx="5"/>
+    <rect x="212" y="30" width="78" height="150" rx="5"/>
+    <path d="M28 82h78M28 132h78M120 82h78M120 132h78M212 82h78M212 132h78"/>
+  </g>
+
+  <!-- Figure di dalam kaca -->
+  <g fill="#E0B463" fill-opacity=".32">
+    <path d="M67 44l14 9v18l-14 9-14-9V53z"/>
+    <path d="M159 96l14 9v18l-14 9-14-9v-18z"/>
+    <path d="M251 146l14 9v18l-14 9-14-9v-18z"/>
+  </g>
+  <g fill="#2AA6C4" fill-opacity=".3">
+    <path d="M67 96l12 8v15l-12 8-12-8v-15z"/>
+    <path d="M159 44l12 8v15l-12 8-12-8V52z"/>
+    <path d="M251 96l12 8v15l-12 8-12-8v-15z"/>
+  </g>
+
+  <!-- Pantulan cahaya kaca -->
+  <g fill="none" stroke="#FFFFFF" stroke-opacity=".12" stroke-width="6" stroke-linecap="round">
+    <path d="M44 168L86 44M136 168L178 44M228 168L270 44"/>
+  </g>
+
+  <path d="M0 180h320v40H0z" fill="#091520" fill-opacity=".6"/>
+</svg>

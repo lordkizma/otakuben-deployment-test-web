@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 200" preserveAspectRatio="xMidYMax slice" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="sg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7FE0F5" stop-opacity=".38"/>
+      <stop offset="1" stop-color="#0A1A2E" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Siluet bintang / emblem karakter -->
+  <path d="M120 18l30 26 26 14-14 30 8 34-30 12-20 46-20-46-30-12 8-34-14-30 26-14z"
+        fill="url(#sg)" stroke="#7FE0F5" stroke-opacity=".3" stroke-width="1.2"/>
+
+  <!-- Garis alas -->
+  <path d="M40 176h160" stroke="#7FE0F5" stroke-opacity=".22" stroke-width="1.4" stroke-linecap="round"/>
+</svg>

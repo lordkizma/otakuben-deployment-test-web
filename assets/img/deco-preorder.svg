@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 280" preserveAspectRatio="xMidYMax slice" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="pg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#5FD3EC" stop-opacity=".55"/>
+      <stop offset="1" stop-color="#2AA6C4" stop-opacity=".08"/>
+    </linearGradient>
+    <linearGradient id="pg2" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#E0B463" stop-opacity=".45"/>
+      <stop offset="1" stop-color="#E0B463" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Cincin orbit -->
+  <circle cx="128" cy="104" r="78" stroke="url(#pg)" stroke-width="1.2"/>
+  <circle cx="128" cy="104" r="56" stroke="url(#pg)" stroke-width="1.2"/>
+
+  <!-- Kerangka hexagon -->
+  <path d="M128 30l58 40v76l-58 40-58-40V70z" stroke="url(#pg)" stroke-width="1.4"/>
+  <path d="M128 62l32 22v50l-32 22-32-22V84z" fill="url(#pg2)" stroke="#E0B463" stroke-opacity=".4" stroke-width="1.2"/>
+
+  <!-- Alas display -->
+  <ellipse cx="128" cy="228" rx="62" ry="12" stroke="#5FD3EC" stroke-opacity=".22" stroke-width="1.2"/>
+  <path d="M60 250h136M78 262h100" stroke="#5FD3EC" stroke-opacity=".28" stroke-width="1.4" stroke-linecap="round"/>
+</svg>
