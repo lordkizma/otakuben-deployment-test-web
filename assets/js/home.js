@@ -1,12 +1,13 @@
 /* ==========================================================================
-   HOME.JS — logika seksi khas beranda Otakuben
+   HOME.JS - logika seksi khas beranda Otakuben
 
    Seksi yang diurus file ini:
-     1. BENTO        : tutup kotak yang tergeser saat scroll (GSAP scrub)
-     2. RAK BERJALAN : baris produk yang digeser ke samping (marketplace)
-     3. GACHA        : tarik kapsul → hadiah acak (three.js + anime.js + confetti)
-     4. JALUR        : garis produksi yang terisi saat scroll
-     5. SUARA        : marquee testimoni dua baris
+     1. KATALOG : satu grid produk pilihan (dulu ada 4 blok katalog terpisah:
+                  bento, deret sumpit, rak berjalan, dan jelajah kategori)
+     2. GACHA   : tarik kapsul -> hadiah acak (three.js + anime.js + confetti)
+     3. JALUR   : garis produksi yang terisi saat scroll
+     4. SUARA   : marquee testimoni dua baris
+     5. SUMBER  : marquee toko sumber titip beli
 
    Semua bagian punya jalur cadangan kalau library-nya tidak ada.
    ========================================================================== */
@@ -21,240 +22,34 @@ App.home = (function () {
   function ST() { return window.ScrollTrigger; }
 
   /* ==================================================================
-     1. BENTO — tutup kotak terbuka saat scroll
+     1. KATALOG - satu rak saja
+
+     Diambil dari barang yang masih tersedia, diurut dari yang paling
+     sering dibawa pulang. Maksimal 8 kartu biar halaman tetap ringan.
      ================================================================== */
-  function bento() {
-    var tutup = document.querySelector("[data-tutup]");
-    if (!tutup) return;
+  var MAKS_KARTU = 8;
 
-    if (!G() || !ST() || kurangGerak) {
-      tutup.style.display = "none";
-      return;
-    }
+  function isiKatalog() {
+    var wadah = document.querySelector("[data-rak-satu]");
+    if (!wadah || !App.data || !App.ui) return;
 
-    G().to(tutup, {
-      yPercent: -104,
-      ease: "none",
-      scrollTrigger: {
-        trigger: "[data-bento]",
-        start: "top 78%",
-        end: "top 22%",
-        scrub: 0.6
-      }
-    });
+    var semua = App.data.products || [];
 
-    // Isi kotak naik sedikit setelah tutupnya lepas
-    G().from("[data-bento] .kotak", {
-      y: 42,
-      opacity: 0,
-      duration: 0.8,
-      stagger: 0.08,
-      ease: "power3.out",
-      scrollTrigger: { trigger: "[data-bento]", start: "top 46%", once: true }
-    });
-  }
+    var pilihan = semua.filter(function (p) {
+      return p.status !== "habis";
+    }).sort(function (a, b) {
+      return (b.terjual || 0) - (a.terjual || 0);
+    }).slice(0, MAKS_KARTU);
 
-  /* ==================================================================
-     2. RAK BERJALAN
-     ================================================================== */
-  var BAY = [
-    {
-      no: "01",
-      label: "Rak Depan",
-      judul: "Baru Turun dari Kardus",
-      teks: "Barang yang baru selesai dicek kondisinya dan langsung naik rak minggu ini.",
-      tautan: "katalog.html",
-      pilih: function (semua) {
-        return semua.filter(function (p) { return p.status === "ready"; }).slice(0, 2);
-      }
-    },
-    {
-      no: "02",
-      label: "Rak Favorit",
-      judul: "Paling Banyak Dibawa Pulang",
-      teks: "Diurut dari yang paling sering masuk keranjang kolektor.",
-      tautan: "katalog.html?sort=terlaris",
-      pilih: function (semua) {
-        return semua.slice().sort(function (a, b) {
-          return (b.terjual || 0) - (a.terjual || 0);
-        }).slice(0, 2);
-      }
-    },
-    {
-      no: "03",
-      label: "Rak Kunci",
-      judul: "Pre-Order Sedang Dibuka",
-      teks: "Slot dibatasi pabrik. Kunci sekarang dengan DP 30% sebelum kuota tutup.",
-      tautan: "katalog.html?status=po",
-      pilih: function (semua) {
-        return semua.filter(function (p) { return p.status === "po"; }).slice(0, 2);
-      }
-    },
-    {
-      no: "04",
-      label: "Rak Potongan",
-      judul: "Turun Harga Pekan Ini",
-      teks: "Barang segel yang harganya sedang dipangkas, stok apa adanya.",
-      tautan: "katalog.html?diskon=1",
-      pilih: function (semua) {
-        return semua.filter(function (p) {
-          return App.data.persenDiskon(p) > 0;
-        }).sort(function (a, b) {
-          return App.data.persenDiskon(b) - App.data.persenDiskon(a);
-        }).slice(0, 2);
-      }
-    },
-    {
-      no: "05",
-      label: "Rak Belakang",
-      judul: "Sisa Stok Menipis",
-      teks: "Kurang dari sepuluh unit di gudang. Kalau sudah habis, tunggu batch berikutnya.",
-      tautan: "katalog.html",
-      pilih: function (semua) {
-        return semua.filter(function (p) {
-          return p.status !== "habis" && p.stok <= 10;
-        }).slice(0, 2);
-      }
-    }
-  ];
+    if (!pilihan.length) pilihan = semua.slice(0, MAKS_KARTU);
 
-  var PANAH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" ' +
-    'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-    '<path d="M5 12h13M12.5 6l6 6-6 6"/></svg>';
-
-  function isiRak() {
-    var track = document.querySelector("[data-rak-track]");
-    if (!track || !App.data || !App.ui) return;
-
-    var semua = App.data.products;
-
-    track.innerHTML = BAY.map(function (b) {
-      var produk = b.pilih(semua);
-      var kartu = produk.map(function (p) { return App.ui.kartuProduk(p); }).join("");
-      return '' +
-        '<article class="bay">' +
-          '<span class="ghost" aria-hidden="true">' + b.no + '</span>' +
-          '<span class="label">' + b.label + '</span>' +
-          '<h3>' + b.judul + '</h3>' +
-          '<p>' + b.teks + '</p>' +
-          '<div class="isi-bay">' + kartu + '</div>' +
-          '<a class="lanjut" href="' + b.tautan + '">Lihat semua di rak ini ' + PANAH + '</a>' +
-        '</article>';
+    wadah.innerHTML = pilihan.map(function (p) {
+      return App.ui.kartuProduk(p);
     }).join("");
   }
 
-  /**
-   * Rak digeser ke samping seperti baris produk marketplace.
-   * Halaman TIDAK di-pin dan scroll vertikal tidak dibajak: pengguna
-   * menggeser sendiri lewat tombol, drag mouse, swipe, atau panah keyboard.
-   */
-  function rakBerjalan() {
-    var viewport = document.querySelector("[data-rak-viewport]");
-    var track = document.querySelector("[data-rak-track]");
-    var bar = document.querySelector("[data-rak-bar]");
-    var mundur = document.querySelector("[data-rak-prev]");
-    var maju = document.querySelector("[data-rak-next]");
-    if (!viewport || !track) return;
-
-    var JEDA = 20; // gap antar bay, samakan dengan .rak-track { gap }
-
-    function batas() {
-      return Math.max(0, track.scrollWidth - viewport.clientWidth);
-    }
-
-    function langkah() {
-      var bay = track.querySelector(".bay");
-      var lebar = bay ? bay.getBoundingClientRect().width + JEDA : viewport.clientWidth * 0.85;
-      return Math.max(160, Math.min(lebar, viewport.clientWidth));
-    }
-
-    function perbarui() {
-      var maks = batas();
-      var progres = maks > 0 ? viewport.scrollLeft / maks : 1;
-      if (bar) bar.style.width = (8 + progres * 92) + "%";
-      if (mundur) mundur.disabled = viewport.scrollLeft <= 2;
-      if (maju) maju.disabled = maks <= 0 || viewport.scrollLeft >= maks - 2;
-    }
-
-    function geser(arah) {
-      var opsi = { left: arah * langkah() };
-      if (!kurangGerak) opsi.behavior = "smooth";
-      if (viewport.scrollBy) viewport.scrollBy(opsi);
-      else viewport.scrollLeft += opsi.left;
-    }
-
-    if (mundur) mundur.addEventListener("click", function () { geser(-1); });
-    if (maju) maju.addEventListener("click", function () { geser(1); });
-
-    viewport.addEventListener("scroll", perbarui, { passive: true });
-    window.addEventListener("resize", perbarui);
-
-    /* Panah kiri/kanan saat rak sedang difokus */
-    viewport.addEventListener("keydown", function (e) {
-      if (e.key === "ArrowRight") { geser(1); e.preventDefault(); }
-      else if (e.key === "ArrowLeft") { geser(-1); e.preventDefault(); }
-    });
-
-    /* Drag pakai mouse / stylus. Sentuhan dibiarkan native biar tetap mulus. */
-    var menekan = false, mulaiX = 0, mulaiScroll = 0, menggeser = false;
-
-    viewport.addEventListener("pointerdown", function (e) {
-      if (e.pointerType === "touch" || e.button !== 0) return;
-      menekan = true;
-      menggeser = false;
-      mulaiX = e.clientX;
-      mulaiScroll = viewport.scrollLeft;
-    });
-
-    viewport.addEventListener("pointermove", function (e) {
-      if (!menekan) return;
-      var selisih = e.clientX - mulaiX;
-      if (!menggeser && Math.abs(selisih) > 6) {
-        menggeser = true;
-        viewport.classList.add("tarik");
-        if (viewport.setPointerCapture) {
-          try { viewport.setPointerCapture(e.pointerId); } catch (err) {}
-        }
-      }
-      if (menggeser) {
-        viewport.scrollLeft = mulaiScroll - selisih;
-        e.preventDefault();
-      }
-    });
-
-    function lepas() {
-      menekan = false;
-      viewport.classList.remove("tarik");
-    }
-    viewport.addEventListener("pointerup", lepas);
-    viewport.addEventListener("pointercancel", lepas);
-
-    /* Cegah kartu ikut ter-klik setelah selesai digeser */
-    viewport.addEventListener("click", function (e) {
-      if (menggeser) {
-        e.preventDefault();
-        e.stopPropagation();
-        menggeser = false;
-      }
-    }, true);
-
-    /* Bay muncul lembut saat seksi masuk layar (bukan scroll yang dibajak) */
-    if (G() && ST() && !kurangGerak && !track.querySelector("[data-reveal]")) {
-      G().from(track.children, {
-        opacity: 0,
-        y: 42,
-        duration: 0.7,
-        ease: "power3.out",
-        stagger: 0.09,
-        scrollTrigger: { trigger: "[data-rak]", start: "top 80%", once: true }
-      });
-    }
-
-    perbarui();
-  }
-
   /* ==================================================================
-     3. GACHA KAPSUL
+     2. GACHA KAPSUL
      ================================================================== */
   var KUNCI_GACHA = "otaku_gacha_v1";
   var MAKS_TARIK = 3;
@@ -348,11 +143,11 @@ App.home = (function () {
     var p = hasil.produk;
 
     panel.innerHTML = '' +
-      '<span class="judul">' + hasil.tier.nama + ' · kamu dapat</span>' +
+      '<span class="judul">' + hasil.tier.nama + ' \u00b7 kamu dapat</span>' +
       '<div class="nama">' + p.nama + '</div>' +
-      '<div class="harga">' + App.data.rupiah(p.harga) + ' · ' + p.brand + '</div>' +
+      '<div class="harga">' + App.data.rupiah(p.harga) + ' \u00b7 ' + p.brand + '</div>' +
       '<span class="kode">' + hasil.tier.kode + '</span>' +
-      '<a class="tautan" href="produk.html?id=' + encodeURIComponent(p.id) + '">Lihat barangnya →</a>' +
+      '<a class="tautan" href="produk.html?id=' + encodeURIComponent(p.id) + '">Lihat barangnya \u2192</a>' +
       '<p style="margin-top:12px;font-size:12px;color:rgba(255,255,255,.6)">' +
         'Potongan ' + hasil.tier.potong + ', pakai kodenya di halaman keranjang.' +
       '</p>';
@@ -461,7 +256,7 @@ App.home = (function () {
   }
 
   /* ==================================================================
-     4. JALUR PRODUKSI
+     3. JALUR PRODUKSI
      ================================================================== */
   function jalur() {
     var isi = document.querySelector("[data-jalur-isi]");
@@ -507,7 +302,7 @@ App.home = (function () {
   }
 
   /* ==================================================================
-     5. SUARA KOLEKTOR
+     4. SUARA KOLEKTOR
      ================================================================== */
   var QUOTE = [
     { teks: "Packing-nya lebay dan gw suka. Box figure 1/7 gw sampai tanpa penyok sedikit pun.",
@@ -531,7 +326,7 @@ App.home = (function () {
     return '' +
       '<blockquote class="quote">' +
         '<div class="bintang" aria-label="5 dari 5">' + BINTANG + BINTANG + BINTANG + BINTANG + BINTANG + '</div>' +
-        '<p>“' + q.teks + '”</p>' +
+        '<p>\u201c' + q.teks + '\u201d</p>' +
         '<div class="who">' +
           '<span class="av" aria-hidden="true">' + q.nama.charAt(0) + '</span>' +
           '<span><b>' + q.nama + '</b><small>' + q.kota + '</small></span>' +
@@ -555,7 +350,7 @@ App.home = (function () {
   }
 
   /* ==================================================================
-     6. SUMBER TITIP BELI (marquee kecil di seksi meja)
+     5. SUMBER TITIP BELI (marquee kecil di seksi meja)
      ================================================================== */
   var SUMBER = ["Mercari", "Amazon JP", "Surugaya", "Animate", "Yahoo Auction",
     "Rakuten", "Mandarake", "AmiAmi", "Hobby Search"];
@@ -577,12 +372,10 @@ App.home = (function () {
   function init() {
     if (document.body.getAttribute("data-page") !== "beranda") return;
 
-    isiRak();
+    isiKatalog();
     sumber();
     suara();
 
-    bento();
-    rakBerjalan();
     gacha();
     jalur();
 
