@@ -180,19 +180,31 @@
   </section>
 
   <!-- ========================================================================
-       4. RAK BERJALAN - scroll horizontal yang di-pin GSAP ScrollTrigger.
-          Isi tiap bay diambil dari data produk oleh js/home.js.
+       4. RAK BERJALAN - digeser ke samping sendiri (tombol / drag / swipe),
+          bukan scroll vertikal yang dibajak. Isi bay dari js/home.js.
        ======================================================================== -->
   <section class="rak" data-rak aria-labelledby="rak-judul">
     <div class="rak-head">
       <h2 id="rak-judul">Jalan Pelan-Pelan di Depan Rak Kami</h2>
-      <p>Lima rak, lima suasana. Terus gulir, raknya yang jalan ke samping - persis kayak
-        keliling toko sungguhan tanpa harus rebutan lorong.</p>
+      <p>Lima rak, lima suasana. Geser sendiri ke samping pakai tombol, tarik kartunya,
+        atau swipe - halaman tetap diam, cuma raknya yang jalan.</p>
     </div>
 
-    <div class="rak-geser" aria-hidden="true">gulir untuk menyusuri rak</div>
+    <div class="rak-atas">
+      <span class="rak-geser" aria-hidden="true">geser ke samping</span>
 
-    <div class="rak-viewport" data-rak-viewport>
+      <div class="rak-nav">
+        <button type="button" data-rak-prev aria-label="Rak sebelumnya" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 6l-6 6 6 6"/></svg>
+        </button>
+        <button type="button" data-rak-next aria-label="Rak berikutnya">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="rak-viewport" data-rak-viewport tabindex="0" role="group"
+         aria-label="Deretan rak produk, geser ke samping">
       <!-- Diisi js/home.js -->
       <div class="rak-track" data-rak-track></div>
     </div>
