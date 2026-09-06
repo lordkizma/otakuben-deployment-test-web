@@ -19,6 +19,7 @@
 .vault-inner{position:relative;z-index:3;display:grid;
   grid-template-columns:minmax(0,1.05fr) minmax(0,.85fr);gap:36px;align-items:center;
   padding:clamp(46px,6.4vw,92px) 0 clamp(56px,7vw,96px)}
+.vault-teks{position:relative;z-index:2;max-width:60ch}
 .vault-kicker{display:inline-flex;align-items:center;gap:9px;font-size:11.5px;
   font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);
   border:1px solid rgba(224,180,99,.38);border-radius:999px;padding:7px 14px;
@@ -104,23 +105,45 @@
 .sumpit a:hover{transform:translateY(-3px);border-color:var(--navy-700);background:var(--gold-soft)}
 
 /* =========================================================================
-   3. RAK BERJALAN — scroll horizontal yang di-pin GSAP
+   3. RAK BERJALAN — baris produk yang digeser ke samping sendiri.
+   Halaman TIDAK di-pin: scroll vertikal tetap normal, rak digeser pakai
+   tombol, drag mouse, swipe, atau tombol panah keyboard (gaya marketplace).
    ========================================================================= */
 .rak{position:relative;background:var(--navy-900);color:#fff;overflow:hidden}
 .rak-head{padding:clamp(46px,6vw,80px) var(--gutter) 0;max-width:var(--shell);
   margin-inline:auto}
 .rak-head h2{font-size:clamp(24px,3.2vw,38px);font-weight:800;letter-spacing:-.028em}
 .rak-head p{margin-top:10px;max-width:56ch;font-size:14.5px;line-height:1.65;color:#B9C6D4}
+
+/* Baris atas: petunjuk geser + tombol navigasi */
+.rak-atas{display:flex;align-items:center;justify-content:space-between;gap:16px;
+  flex-wrap:wrap;margin:20px max(var(--gutter),calc((100vw - var(--shell))/2)) 0}
+.rak-geser{display:flex;align-items:center;gap:10px;font-size:11px;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.rak-nav{display:flex;gap:10px}
+.rak-nav button{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#fff;
+  cursor:pointer;transition:background-color .25s,border-color .25s,color .25s,
+  transform .25s var(--ease)}
+.rak-nav button svg{width:18px;height:18px}
+.rak-nav button:hover:not(:disabled){background:var(--gold);border-color:var(--gold);
+  color:var(--gold-ink);transform:translateY(-2px)}
+.rak-nav button:disabled{opacity:.3;cursor:not-allowed}
+
+/* Area geser */
 .rak-viewport{overflow-x:auto;overflow-y:hidden;scrollbar-width:none;
-  -webkit-overflow-scrolling:touch}
+  -webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;
+  scroll-snap-type:x proximity;cursor:grab}
 .rak-viewport::-webkit-scrollbar{display:none}
-.libs-on .rak-viewport{overflow:hidden}
+.rak-viewport:focus-visible{outline:2px solid var(--gold);outline-offset:-4px}
+.rak-viewport.tarik{cursor:grabbing;scroll-snap-type:none;user-select:none}
+.rak-viewport.tarik a,.rak-viewport.tarik button{pointer-events:none}
 .rak-track{display:flex;gap:20px;width:max-content;
   padding:clamp(28px,4vw,44px) max(var(--gutter),calc((100vw - var(--shell))/2))
           clamp(34px,4.4vw,52px)}
 .bay{position:relative;flex:0 0 min(560px,84vw);border-radius:18px;padding:22px 22px 24px;
   background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
-  border:1px solid rgba(255,255,255,.1)}
+  border:1px solid rgba(255,255,255,.1);scroll-snap-align:start}
 .bay .ghost{position:absolute;right:16px;top:-14px;font-size:clamp(64px,9vw,104px);
   font-weight:800;line-height:1;color:rgba(255,255,255,.055);letter-spacing:-.05em}
 .bay .label{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;
@@ -136,10 +159,8 @@
 .rak-bar{position:relative;height:3px;margin:0 max(var(--gutter),calc((100vw - var(--shell))/2))
   clamp(40px,6vw,64px);background:rgba(255,255,255,.12);border-radius:99px}
 .rak-bar i{position:absolute;left:0;top:0;bottom:0;width:8%;border-radius:99px;
-  background:linear-gradient(90deg,var(--gold),var(--cyan))}
-.rak-geser{display:flex;align-items:center;gap:10px;justify-content:flex-end;
-  margin:0 max(var(--gutter),calc((100vw - var(--shell))/2)) 12px;font-size:11px;
-  font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+  background:linear-gradient(90deg,var(--gold),var(--cyan));
+  transition:width .25s var(--ease)}
 
 /* =========================================================================
    4. GACHA — kapsul 3D interaktif (three.js + anime.js + confetti)
@@ -159,6 +180,7 @@
 .gacha-stage .putar-info{position:absolute;left:0;right:0;bottom:12px;text-align:center;
   font-size:10.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
   color:rgba(255,255,255,.5)}
+.gacha-teks{position:relative;z-index:2}
 .gacha-kicker{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;
   font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
   color:var(--cyan);background:rgba(42,166,196,.12);border:1px solid rgba(42,166,196,.4)}
@@ -266,9 +288,9 @@
 .quote .bintang svg{width:13px;height:13px}
 
 /* =========================================================================
-   7b. EXPLORE BY CATEGORY
+   7b. EXPLORE BY CATEGORY — penutup beranda
    ========================================================================= */
-.jelajah{padding:clamp(48px,6.4vw,84px) 0 clamp(56px,7vw,96px)}
+.jelajah{padding:clamp(48px,6.4vw,84px) 0 clamp(56px,7vw,96px);background:var(--canvas)}
 
 /* =========================================================================
    8. RESPONSIF SEKSI BERANDA
@@ -301,6 +323,7 @@
   .rate-baris{grid-template-columns:74px 1fr 42px}
 }
 @media (max-width:380px){
+  .rak-nav button{width:40px;height:40px}
   .vault-stat b{font-size:20px}
   .quote{flex-basis:88vw}
 }
