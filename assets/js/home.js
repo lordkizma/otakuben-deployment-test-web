@@ -3,7 +3,7 @@
 
    Seksi yang diurus file ini:
      1. BENTO        : tutup kotak yang tergeser saat scroll (GSAP scrub)
-     2. RAK BERJALAN : scroll horizontal yang di-pin (GSAP ScrollTrigger)
+     2. RAK BERJALAN : baris produk yang digeser ke samping (marketplace)
      3. GACHA        : tarik kapsul → hadiah acak (three.js + anime.js + confetti)
      4. JALUR        : garis produksi yang terisi saat scroll
      5. SUARA        : marquee testimoni dua baris
@@ -143,63 +143,114 @@ App.home = (function () {
     }).join("");
   }
 
+  /**
+   * Rak digeser ke samping seperti baris produk marketplace.
+   * Halaman TIDAK di-pin dan scroll vertikal tidak dibajak: pengguna
+   * menggeser sendiri lewat tombol, drag mouse, swipe, atau panah keyboard.
+   */
   function rakBerjalan() {
     var viewport = document.querySelector("[data-rak-viewport]");
     var track = document.querySelector("[data-rak-track]");
     var bar = document.querySelector("[data-rak-bar]");
+    var mundur = document.querySelector("[data-rak-prev]");
+    var maju = document.querySelector("[data-rak-next]");
     if (!viewport || !track) return;
 
-    // Tanpa GSAP: cukup scroll horizontal biasa (tetap bisa dipakai)
-    if (!G() || !ST() || kurangGerak) {
-      if (bar) bar.style.width = "100%";
-      return;
+    var JEDA = 20; // gap antar bay, samakan dengan .rak-track { gap }
+
+    function batas() {
+      return Math.max(0, track.scrollWidth - viewport.clientWidth);
     }
 
-    ST().matchMedia({
-      // Desktop: seksi di-pin, track bergeser mengikuti scroll
-      "(min-width: 861px)": function () {
-        var jarak = function () {
-          return Math.max(0, track.scrollWidth - window.innerWidth);
-        };
+    function langkah() {
+      var bay = track.querySelector(".bay");
+      var lebar = bay ? bay.getBoundingClientRect().width + JEDA : viewport.clientWidth * 0.85;
+      return Math.max(160, Math.min(lebar, viewport.clientWidth));
+    }
 
-        var tween = G().to(track, {
-          x: function () { return -jarak(); },
-          ease: "none",
-          scrollTrigger: {
-            trigger: "[data-rak]",
-            start: "top top",
-            end: function () { return "+=" + (jarak() + window.innerHeight * 0.6); },
-            pin: true,
-            scrub: 0.8,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-            onUpdate: function (diri) {
-              if (bar) bar.style.width = (8 + diri.progress * 92) + "%";
-            }
-          }
-        });
+    function perbarui() {
+      var maks = batas();
+      var progres = maks > 0 ? viewport.scrollLeft / maks : 1;
+      if (bar) bar.style.width = (8 + progres * 92) + "%";
+      if (mundur) mundur.disabled = viewport.scrollLeft <= 2;
+      if (maju) maju.disabled = maks <= 0 || viewport.scrollLeft >= maks - 2;
+    }
 
-        return function () {
-          if (tween.scrollTrigger) tween.scrollTrigger.kill();
-          tween.kill();
-          G().set(track, { x: 0 });
-        };
-      },
+    function geser(arah) {
+      var opsi = { left: arah * langkah() };
+      if (!kurangGerak) opsi.behavior = "smooth";
+      if (viewport.scrollBy) viewport.scrollBy(opsi);
+      else viewport.scrollLeft += opsi.left;
+    }
 
-      // Mobile: geser pakai jempol, progres ikut posisi scroll
-      "(max-width: 860px)": function () {
-        function perbarui() {
-          var maks = track.scrollWidth - viewport.clientWidth;
-          var maju = maks > 0 ? viewport.scrollLeft / maks : 1;
-          if (bar) bar.style.width = (8 + maju * 92) + "%";
+    if (mundur) mundur.addEventListener("click", function () { geser(-1); });
+    if (maju) maju.addEventListener("click", function () { geser(1); });
+
+    viewport.addEventListener("scroll", perbarui, { passive: true });
+    window.addEventListener("resize", perbarui);
+
+    /* Panah kiri/kanan saat rak sedang difokus */
+    viewport.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowRight") { geser(1); e.preventDefault(); }
+      else if (e.key === "ArrowLeft") { geser(-1); e.preventDefault(); }
+    });
+
+    /* Drag pakai mouse / stylus. Sentuhan dibiarkan native biar tetap mulus. */
+    var menekan = false, mulaiX = 0, mulaiScroll = 0, menggeser = false;
+
+    viewport.addEventListener("pointerdown", function (e) {
+      if (e.pointerType === "touch" || e.button !== 0) return;
+      menekan = true;
+      menggeser = false;
+      mulaiX = e.clientX;
+      mulaiScroll = viewport.scrollLeft;
+    });
+
+    viewport.addEventListener("pointermove", function (e) {
+      if (!menekan) return;
+      var selisih = e.clientX - mulaiX;
+      if (!menggeser && Math.abs(selisih) > 6) {
+        menggeser = true;
+        viewport.classList.add("tarik");
+        if (viewport.setPointerCapture) {
+          try { viewport.setPointerCapture(e.pointerId); } catch (err) {}
         }
-        viewport.addEventListener("scroll", perbarui, { passive: true });
-        perbarui();
-        return function () {
-          viewport.removeEventListener("scroll", perbarui);
-        };
+      }
+      if (menggeser) {
+        viewport.scrollLeft = mulaiScroll - selisih;
+        e.preventDefault();
       }
     });
+
+    function lepas() {
+      menekan = false;
+      viewport.classList.remove("tarik");
+    }
+    viewport.addEventListener("pointerup", lepas);
+    viewport.addEventListener("pointercancel", lepas);
+
+    /* Cegah kartu ikut ter-klik setelah selesai digeser */
+    viewport.addEventListener("click", function (e) {
+      if (menggeser) {
+        e.preventDefault();
+        e.stopPropagation();
+        menggeser = false;
+      }
+    }, true);
+
+    /* Bay muncul lembut saat seksi masuk layar (bukan scroll yang dibajak) */
+    if (G() && ST() && !kurangGerak && !track.querySelector("[data-reveal]")) {
+      G().from(track.children, {
+        opacity: 0,
+        y: 42,
+        duration: 0.7,
+        ease: "power3.out",
+        stagger: 0.09,
+        scrollTrigger: { trigger: "[data-rak]", start: "top 80%", once: true }
+      });
+    }
+
+    perbarui();
   }
 
   /* ==================================================================

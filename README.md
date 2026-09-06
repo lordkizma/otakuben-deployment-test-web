@@ -13,7 +13,7 @@ Seksi beranda:
 
 1. **Vault** - hero dengan lemari kaca 3D (three.js) yang ikut gerak mengikuti kursor.
 2. **Kotak Bento Koleksi** - grid kategori dengan tutup kotak yang tergeser saat scroll.
-3. **Rak Berjalan** - scroll horizontal yang di-pin, 5 bay produk.
+3. **Rak Berjalan** - 5 bay produk yang digeser ke samping (tombol, drag, swipe, panah keyboard); scroll halaman tidak dibajak.
 4. **Gacha Kapsul** - kapsul 3D bisa diseret, dibuka, keluar hadiah + kode promo (maks 3x per sesi).
 5. **Jalur Produksi** - timeline pre-order yang terisi mengikuti scroll.
 6. **Meja Kerja** - kartu titip beli (marquee sumber) + kartu poin kolektor.
@@ -24,7 +24,7 @@ Seksi beranda:
 
 | Library | Versi | Dipakai untuk |
 | --- | --- | --- |
-| GSAP + ScrollTrigger | 3.12.5 | reveal, pin scroll horizontal, scrub, marquee, kursor |
+| GSAP + ScrollTrigger | 3.12.5 | reveal, scrub, marquee, kursor, progres geser rak |
 | anime.js | 3.2.2 | pop kartu, goyang kapsul, counter angka |
 | AOS | 2.3.4 | reveal sederhana pada stasiun jalur & kartu meja |
 | Lenis | 1.0.42 | smooth scroll |
